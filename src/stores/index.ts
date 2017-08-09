@@ -5,3 +5,5 @@ import { TransactionsStore } from './transactions';
 export const Store = types.model('Store', {
   transactions: types.optional(TransactionsStore, {})
 });
+
+export type IStore = typeof Store.Type;

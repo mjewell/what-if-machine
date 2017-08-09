@@ -2,6 +2,8 @@ import './styles.css';
 
 import * as React from 'react';
 
+import Transactions from '../Transactions';
+
 const logo = require('../../logo.svg');
 
 class App extends React.Component<{}, {}> {
@@ -12,6 +14,7 @@ class App extends React.Component<{}, {}> {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>What-If Machine</h2>
         </div>
+        <Transactions />
       </div>
     );
   }
