@@ -8,8 +8,9 @@ import { ITransaction, Transaction } from './transaction';
 
 later.date.localTime();
 
-type IOccurrenceData = {
-  [key: number]: ITransaction;
+export type ITimeSeriesData = {
+  date: moment.Moment;
+  amount: number;
 };
 
 const initialSchedule = later.parse
@@ -30,15 +31,15 @@ const salarySchedule = later.parse
 
 export const TransactionsStore = types.model('TransactionsStore', {
   transactions: types.optional(types.array(Transaction), [
-    // {
-    //   id: '1',
-    //   name: 'initial',
-    //   amount: 1000,
-    //   scheduleData: {
-    //     schedules: initialSchedule.schedules,
-    //     exceptions: initialSchedule.exceptions
-    //   }
-    // },
+    {
+      id: '1',
+      name: 'initial',
+      amount: 1000,
+      scheduleData: {
+        schedules: initialSchedule.schedules,
+        exceptions: initialSchedule.exceptions
+      }
+    },
     {
       id: '2',
       name: 'rent',
@@ -58,15 +59,19 @@ export const TransactionsStore = types.model('TransactionsStore', {
       }
     }
   ]),
-  generateTimeSeries(startDateTime: Date, endDateTime: Date): any {
+  generateTimeSeries(
+    startDateTime: Date,
+    endDateTime: Date
+  ): ITimeSeriesData[] {
     const startDate = moment(startDateTime).startOf('day').toDate();
     const endDate = moment(endDateTime).startOf('day').toDate();
 
     const occurrences = this.transactions.map(transaction =>
-      this.getOccurrences(transaction, startDate, endDate)
+      transaction.getOccurrences(startDate, endDate)
     );
 
     const range = moment(startDate).twix(endDate, { allDay: true });
+    // tslint:disable-next-line
     const days = (range as any).toArray('days') as moment.Moment[];
 
     let sum = 0;
@@ -83,23 +88,5 @@ export const TransactionsStore = types.model('TransactionsStore', {
         amount: sum
       };
     });
-  },
-  getOccurrences(
-    transaction: ITransaction,
-    startDate: Date,
-    endDate: Date
-  ): any {
-    const occurrencesArray = transaction.schedule.next(-1, startDate, endDate);
-
-    if (!occurrencesArray) {
-      return {};
-    }
-
-    return occurrencesArray.reduce<IOccurrenceData>((obj, occurrence) => {
-      return {
-        ...obj,
-        [occurrence.getTime()]: transaction
-      };
-    }, {});
   }
 });

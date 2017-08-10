@@ -3,20 +3,11 @@ import { toJS } from 'mobx';
 import { IType, types } from 'mobx-state-tree';
 import * as moment from 'moment';
 
-const JSONValue = types.union(
-  types.string,
-  types.number,
-  types.boolean,
-  types.literal(null),
-  types.late(() => JSONMap),
-  types.late(() => JSONArray)
-);
+import { JSONType } from '../types/json';
 
-const JSONMap: IType<any, any> = types.map(JSONValue);
-
-const JSONArray: IType<any, any> = types.array(JSONValue);
-
-const JSONType: IType<any, any> = types.union(JSONMap, JSONArray);
+type IOccurrenceData = {
+  [key: number]: ITransaction;
+};
 
 export const Transaction = types.model(
   'Transaction',
@@ -27,9 +18,25 @@ export const Transaction = types.model(
     scheduleData: JSONType,
     get schedule() {
       return later.schedule(toJS(this.scheduleData));
+    },
+    getOccurrences(startDate: Date, endDate: Date): IOccurrenceData {
+      const occurrencesArray = this.schedule.next(-1, startDate, endDate);
+
+      if (!occurrencesArray) {
+        return {};
+      }
+
+      return occurrencesArray.reduce((obj, occurrence) => {
+        return {
+          ...obj,
+          [occurrence.getTime()]: this
+        };
+      }, {});
     }
   },
   {
+    // fix this when mobx-state-tree has a solution
+    // tslint:disable-next-line
     postProcessSnapshot(snapshot: any): any {
       const schedule = snapshot.scheduleData;
       return {
