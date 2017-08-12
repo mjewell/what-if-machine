@@ -13,7 +13,7 @@ export default class Transaction extends React.Component<{}, {}> {
         </InputGroup>
         for
         <FormControl type="text" placeholder="name" className="mx-2" />
-        <Recurrence />
+        <Recurrence onChange={console.log} />
       </FormGroup>
     );
   }

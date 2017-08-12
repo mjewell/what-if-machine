@@ -7,7 +7,11 @@ type IState = {
   period: 'days' | 'weeks' | 'months' | 'years';
 };
 
-export default class EveryBranch extends React.Component<{}, IState> {
+type IProps = {
+  onChange?(val: any): void;
+};
+
+export default class EveryBranch extends React.Component<IProps, IState> {
   state: IState = { period: 'days' };
 
   setPeriod = (e: any) =>
@@ -26,7 +30,12 @@ export default class EveryBranch extends React.Component<{}, IState> {
 
     return (
       <FormGroup>
-        <FormControl type="number" placeholder="number" className="mr-2" />
+        <FormControl
+          type="number"
+          min="1"
+          placeholder="number"
+          className="mr-2"
+        />
         <FormControl
           componentClass="select"
           onChange={this.setPeriod}

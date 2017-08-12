@@ -4,20 +4,46 @@ import { FormControl, FormGroup } from 'react-bootstrap';
 import EveryBranch from './EveryBranch';
 import OnBranch from './OnBranch';
 
-type IState = {
+export type IState = {
   type: 'on' | 'every';
+  nextStep: any;
 };
 
-export default class Recurrence extends React.Component<{}, IState> {
-  state: IState = { type: 'every' };
+type IProps = {
+  onChange?(val: IState): void;
+};
 
-  setType = (e: any) =>
-    this.setState({
-      type: e.target.value
-    });
+export default class Recurrence extends React.Component<IProps, IState> {
+  state: IState = { type: 'every', nextStep: null };
+
+  onChange = () => {
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(this.state);
+    }
+  };
+
+  setType = (e: any) => {
+    this.setState(
+      {
+        type: e.target.value,
+        nextStep: null
+      },
+      this.onChange
+    );
+  };
+
+  setNextStep = (val: any) => {
+    this.setState(
+      {
+        nextStep: val
+      },
+      this.onChange
+    );
+  };
 
   render() {
-    const { type } = this.state;
+    const { type, nextStep } = this.state;
 
     const NextStep = type === 'on' ? OnBranch : EveryBranch;
 
@@ -32,7 +58,7 @@ export default class Recurrence extends React.Component<{}, IState> {
           <option value="on">on...</option>
           <option value="every">every...</option>
         </FormControl>
-        <NextStep />
+        <NextStep value={nextStep} onChange={this.setNextStep} />
       </FormGroup>
     );
   }
