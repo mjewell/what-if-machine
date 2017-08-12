@@ -3,8 +3,10 @@ import * as React from 'react';
 
 import DatePicker from '../DatePicker';
 
+export type IValue = Date | moment.Moment | null;
+
 type IProps = {
-  value: Date | moment.Moment | null;
+  value: IValue;
   onChange(date: moment.Moment | null): void;
 };
 

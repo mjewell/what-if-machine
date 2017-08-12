@@ -1,31 +1,53 @@
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import DatePicker from '../DatePicker';
+import Timespan, { IValue as ITimespanValue } from './Timespan';
 
-type IState = {
-  period: 'days' | 'weeks' | 'months' | 'years';
+type IPeriods = 'days' | 'weeks' | 'months' | 'years';
+
+export type IValue = {
+  count: string | number;
+  period: IPeriods;
+  timespan: ITimespanValue;
 };
 
 type IProps = {
-  onChange?(val: any): void;
+  value: IValue;
+  onChange(val: IValue): void;
 };
 
-export default class EveryBranch extends React.Component<IProps, IState> {
-  state: IState = { period: 'days' };
+export default class EveryBranch extends React.Component<IProps, {}> {
+  setNumber = (e: any) => {
+    const { onChange, value } = this.props;
+    onChange({
+      ...value,
+      count: e.target.value
+    });
+  };
 
-  setPeriod = (e: any) =>
-    this.setState({
+  setPeriod = (e: any) => {
+    const { onChange, value } = this.props;
+    onChange({
+      ...value,
       period: e.target.value
     });
+  };
+
+  setTimespan = (timespan: ITimespanValue) => {
+    const { onChange, value } = this.props;
+    onChange({
+      ...value,
+      timespan
+    });
+  };
 
   render() {
-    const { period } = this.state;
+    const { count, period, timespan } = this.props.value;
 
-    let NextStep;
+    let PeriodStep;
 
     if (period === 'days') {
-      NextStep = null;
+      PeriodStep = null;
     }
 
     return (
@@ -34,6 +56,8 @@ export default class EveryBranch extends React.Component<IProps, IState> {
           type="number"
           min="1"
           placeholder="number"
+          onChange={this.setNumber}
+          value={count}
           className="mr-2"
         />
         <FormControl
@@ -47,7 +71,8 @@ export default class EveryBranch extends React.Component<IProps, IState> {
           <option value="months">months...</option>
           <option value="years">years...</option>
         </FormControl>
-        {NextStep}
+        {PeriodStep}
+        <Timespan value={timespan} onChange={this.setTimespan} />
       </FormGroup>
     );
   }
