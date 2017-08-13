@@ -3,11 +3,7 @@ import { FormControl, FormGroup } from 'react-bootstrap';
 
 import EveryBranch, { IValue as IEveryBranchValue } from './EveryBranch';
 import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
-
-type IState = {
-  onBranch: IOnBranchValue;
-  everyBranch: IEveryBranchValue;
-};
+import withBranchStates from './withBranchStates';
 
 export type IValue = {
   type: 'on' | 'every';
@@ -19,94 +15,60 @@ type IProps = {
   onChange(val: IValue): void;
 };
 
-export default class Recurrence extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-
-    const { data, type } = this.props.value;
-    if (type === 'on') {
-      this.state = {
-        onBranch: data as IOnBranchValue,
-        everyBranch: {
-          period: 'days',
-          count: 1,
-          timespan: { startDate: null, type: 'never' }
-        }
-      };
-    } else {
-      this.state = {
-        onBranch: null,
-        everyBranch: data as IEveryBranchValue
-      };
+export default withBranchStates({
+  defaultStates: {
+    on: null,
+    every: {
+      period: 'days',
+      count: 1,
+      timespan: { startDate: null, type: 'never', data: null }
     }
   }
+})(
+  class Recurrence extends React.Component<IProps> {
+    setType = (e: any) => {
+      const { onChange, value } = this.props;
 
-  setType = (e: any) => {
-    const { onChange, value } = this.props;
-    const type = e.target.value;
-    const { onBranch, everyBranch } = this.state;
-    const data = type === 'on' ? onBranch : everyBranch;
-
-    onChange({
-      ...value,
-      type,
-      data
-    });
-  };
-
-  setData = (data: IOnBranchValue | IEveryBranchValue) => {
-    const { onChange, value } = this.props;
-    const { type } = value;
-
-    if (type === 'on') {
-      this.setState({
-        onBranch: data as IOnBranchValue
+      onChange({
+        ...value,
+        type: e.target.value
       });
-    } else {
-      this.setState({
-        everyBranch: data as IEveryBranchValue
+    };
+
+    setData = (data: IOnBranchValue | IEveryBranchValue) => {
+      const { onChange, value } = this.props;
+
+      onChange({
+        ...value,
+        data
       });
-    }
+    };
 
-    onChange({
-      ...value,
-      data
-    });
-  };
+    renderNextStep = () => {
+      const { data, type } = this.props.value;
 
-  renderNextStep = () => {
-    const { data, type } = this.props.value;
+      const Component = type === 'on' ? OnBranch : EveryBranch;
 
-    if (type === 'on') {
+      return <Component value={data as any} onChange={this.setData} />;
+    };
+
+    render() {
+      const { type } = this.props.value;
+
       return (
-        <OnBranch value={data as IOnBranchValue} onChange={this.setData} />
-      );
-    } else {
-      return (
-        <EveryBranch
-          value={data as IEveryBranchValue}
-          onChange={this.setData}
-        />
+        <FormGroup>
+          <FormControl
+            componentClass="select"
+            onChange={this.setType}
+            value={type}
+            className="mr-2"
+          >
+            <option value="on">on...</option>
+            <option value="every">every...</option>
+          </FormControl>
+          {this.renderNextStep()}
+        </FormGroup>
       );
     }
-  };
-
-  render() {
-    const { type } = this.props.value;
-
-    return (
-      <FormGroup>
-        <FormControl
-          componentClass="select"
-          onChange={this.setType}
-          value={type}
-          className="mr-2"
-        >
-          <option value="on">on...</option>
-          <option value="every">every...</option>
-        </FormControl>
-        {this.renderNextStep()}
-      </FormGroup>
-    );
   }
-}
+);

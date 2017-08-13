@@ -17,7 +17,7 @@ type IProps = {
 };
 
 export default class EveryBranch extends React.Component<IProps, {}> {
-  setNumber = (e: any) => {
+  setCount = (e: any) => {
     const { onChange, value } = this.props;
     onChange({
       ...value,
@@ -56,7 +56,7 @@ export default class EveryBranch extends React.Component<IProps, {}> {
           type="number"
           min="1"
           placeholder="number"
-          onChange={this.setNumber}
+          onChange={this.setCount}
           value={count}
           className="mr-2"
         />
