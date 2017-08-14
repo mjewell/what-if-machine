@@ -5,16 +5,8 @@ import Recurrence, { IValue } from '../Recurrence';
 
 export default class Transaction extends React.Component<{}, IValue> {
   state: IValue = {
-    type: 'every',
-    data: {
-      period: 'days',
-      count: 1,
-      startDate: null,
-      ending: {
-        type: 'never',
-        data: null
-      }
-    }
+    type: 'on',
+    data: null
   };
 
   onChange = (val: any) => {

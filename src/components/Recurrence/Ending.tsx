@@ -22,9 +22,7 @@ export default withBranchStates({
   defaultStates: {
     never: null,
     on: null,
-    after: {
-      count: 10
-    }
+    after: 10
   }
 })(
   class Ending extends React.Component<IProps> {
