@@ -9,7 +9,11 @@ export default class Transaction extends React.Component<{}, IValue> {
     data: {
       period: 'days',
       count: 1,
-      timespan: { startDate: null, type: 'never', data: null }
+      startDate: null,
+      ending: {
+        type: 'never',
+        data: null
+      }
     }
   };
 

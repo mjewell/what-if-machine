@@ -8,12 +8,12 @@ import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
 import withBranchStates from './withBranchStates';
 
 export type IValue = {
-  startDate: Date | moment.Moment | null;
   type: 'never' | 'on' | 'after';
   data: IOnBranchValue | IAfterBranchValue;
 };
 
 type IProps = {
+  minDate?: moment.Moment | null;
   value: IValue;
   onChange(val: IValue): void;
 };
@@ -27,15 +27,7 @@ export default withBranchStates({
     }
   }
 })(
-  class Timespan extends React.Component<IProps> {
-    setStartDate = (date: moment.Moment | null) => {
-      const { onChange, value } = this.props;
-      onChange({
-        ...value,
-        startDate: date
-      });
-    };
-
+  class Ending extends React.Component<IProps> {
     setType = (e: any) => {
       const { onChange, value } = this.props;
 
@@ -55,11 +47,16 @@ export default withBranchStates({
     };
 
     renderNextStep = () => {
+      const { minDate, value } = this.props;
       const { data, type } = this.props.value;
 
       if (type === 'on') {
         return (
-          <OnBranch value={data as IOnBranchValue} onChange={this.setData} />
+          <OnBranch
+            value={data as IOnBranchValue}
+            onChange={this.setData}
+            minDate={minDate}
+          />
         );
       } else if (type === 'after') {
         return (
@@ -74,20 +71,16 @@ export default withBranchStates({
     };
 
     render() {
-      const { startDate, type } = this.props.value;
+      const { type } = this.props.value;
 
       return (
-        <FormGroup>
-          starting on
-          <FormGroup className="mx-2">
-            <DatePicker date={startDate} onDateChange={this.setStartDate} />
-          </FormGroup>
+        <FormGroup className="ml-2">
           and ending
           <FormControl
             componentClass="select"
             onChange={this.setType}
             value={type}
-            className="mx-2"
+            className="ml-2"
           >
             <option value="never">never</option>
             <option value="on">on...</option>

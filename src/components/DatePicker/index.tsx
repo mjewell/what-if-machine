@@ -4,27 +4,46 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { SingleDatePicker } from 'react-dates';
 
+export type IValue = moment.Moment | null;
+
 type IProps = {
-  date: Date | moment.Moment | null;
-  onDateChange(date: moment.Moment | null): void;
+  minDate?: IValue;
+  date: IValue;
+  onDateChange(date: IValue): void;
 };
 
-export default class DatePicker extends React.Component<IProps, {}> {
+export default class DatePicker extends React.Component<IProps> {
   state = { focused: false };
 
   setFocused = ({ focused }: { focused: boolean }) =>
     this.setState({ focused });
 
+  isOutsideRange = (minDate?: IValue) => {
+    if (!minDate) {
+      return () => false;
+    }
+
+    const minDateMoment = moment(minDate).startOf('day');
+
+    return (date: moment.Moment) => {
+      return minDateMoment.isSameOrAfter(date);
+    };
+  };
+
   render() {
     const { focused } = this.state;
+    const { minDate, date, ...props } = this.props;
+    const isOutsideRange = this.isOutsideRange(minDate);
+
     return (
       <SingleDatePicker
         id="datepicker"
         focused={focused}
         onFocusChange={this.setFocused}
         numberOfMonths={1}
-        {...this.props}
-        date={this.props.date && moment(this.props.date)}
+        isOutsideRange={isOutsideRange}
+        {...props}
+        date={date && moment(date)}
       />
     );
   }

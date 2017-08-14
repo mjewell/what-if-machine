@@ -1,19 +1,24 @@
 import * as moment from 'moment';
 import * as React from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import DatePicker from '../DatePicker';
 
-export type IValue = Date | moment.Moment | null;
+export type IValue = moment.Moment | null;
 
 type IProps = {
+  minDate?: IValue;
   value: IValue;
-  onChange(date: moment.Moment | null): void;
+  onChange(date: IValue): void;
 };
 
 export default class OnBranch extends React.Component<IProps, {}> {
   render() {
+    const { minDate, onChange, value } = this.props;
     return (
-      <DatePicker date={this.props.value} onDateChange={this.props.onChange} />
+      <FormGroup className="ml-2">
+        <DatePicker date={value} onDateChange={onChange} minDate={minDate} />
+      </FormGroup>
     );
   }
 }

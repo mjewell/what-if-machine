@@ -21,7 +21,11 @@ export default withBranchStates({
     every: {
       period: 'days',
       count: 1,
-      timespan: { startDate: null, type: 'never', data: null }
+      startDate: null,
+      ending: {
+        type: 'never',
+        data: null
+      }
     }
   }
 })(
@@ -61,7 +65,6 @@ export default withBranchStates({
             componentClass="select"
             onChange={this.setType}
             value={type}
-            className="mr-2"
           >
             <option value="on">on...</option>
             <option value="every">every...</option>

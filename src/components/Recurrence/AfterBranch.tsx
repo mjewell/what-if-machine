@@ -1,27 +1,21 @@
-import * as moment from 'moment';
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-export type IValue = {
-  count: string | number;
-};
+export type IValue = string | number;
 
 type IProps = {
   value: IValue;
-  onChange(date: IValue): void;
+  onChange(count: IValue): void;
 };
 
 export default class AfterBranch extends React.Component<IProps> {
-  setCount = (e: any) => {
-    const { onChange, value } = this.props;
-    onChange({
-      ...value,
-      count: e.target.value
-    });
+  onChange = (e: any) => {
+    const { onChange } = this.props;
+    onChange(e.target.value);
   };
 
   render() {
-    const { count } = this.props.value;
+    const { value } = this.props;
 
     return (
       <FormGroup>
@@ -29,9 +23,9 @@ export default class AfterBranch extends React.Component<IProps> {
           type="number"
           min="1"
           placeholder="number"
-          onChange={this.setCount}
-          value={count}
-          className="mr-2"
+          onChange={this.onChange}
+          value={value}
+          className="mx-2"
         />
         times
       </FormGroup>

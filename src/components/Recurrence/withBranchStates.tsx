@@ -13,6 +13,7 @@ export default <T extends {}>({ defaultStates }: { defaultStates: T }) => {
   type IProps = {
     value: IValue;
     onChange(val: IValue): void;
+    [key: string]: any;
   };
 
   return (WrappedComponent: React.ComponentClass<any>) =>
