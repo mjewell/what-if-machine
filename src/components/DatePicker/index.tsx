@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { SingleDatePicker } from 'react-dates';
 
-export type IValue = moment.Moment | null;
+export type IValue = Date | null;
 
 type IProps = {
   minDate?: IValue;
@@ -30,6 +30,10 @@ export default class DatePicker extends React.Component<IProps> {
     };
   };
 
+  onDateChange = (date: moment.Moment | null) => {
+    return this.props.onDateChange(date && date.toDate());
+  };
+
   render() {
     const { focused } = this.state;
     const { minDate, date, ...props } = this.props;
@@ -43,6 +47,7 @@ export default class DatePicker extends React.Component<IProps> {
         numberOfMonths={1}
         isOutsideRange={isOutsideRange}
         {...props}
+        onDateChange={this.onDateChange}
         date={date && moment(date)}
       />
     );

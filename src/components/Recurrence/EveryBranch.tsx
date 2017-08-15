@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
@@ -53,7 +54,7 @@ export default class EveryBranch extends React.Component<IProps, {}> {
 
   render() {
     const { count, period, startDate, ending } = this.props.value;
-    const nextDay = startDate && startDate.clone().add(1, 'day');
+    const nextDay = startDate && moment(startDate).add(1, 'day');
 
     return (
       <FormGroup className="ml-2">
@@ -77,7 +78,11 @@ export default class EveryBranch extends React.Component<IProps, {}> {
         </FormControl>
         starting on
         <OnBranch value={startDate} onChange={this.setStartDate} />
-        <Ending value={ending} onChange={this.setEnding} minDate={nextDay} />
+        <Ending
+          value={ending}
+          onChange={this.setEnding}
+          minDate={nextDay && nextDay.toDate()}
+        />
       </FormGroup>
     );
   }

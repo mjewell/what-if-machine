@@ -12,7 +12,7 @@ export type IValue = {
 };
 
 type IProps = {
-  minDate?: moment.Moment | null;
+  minDate?: Date | null;
   value: IValue;
   onChange(val: IValue): void;
 };

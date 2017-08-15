@@ -4,7 +4,7 @@ import { FormGroup } from 'react-bootstrap';
 
 import DatePicker from '../DatePicker';
 
-export type IValue = moment.Moment | null;
+export type IValue = Date | null;
 
 type IProps = {
   minDate?: IValue;
