@@ -2,7 +2,6 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import DatePicker from '../DatePicker';
 import AfterBranch, { IValue as IAfterBranchValue } from './AfterBranch';
 import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
 import withBranchStates from './withBranchStates';
@@ -45,7 +44,7 @@ export default withBranchStates({
     };
 
     renderNextStep = () => {
-      const { minDate, value } = this.props;
+      const { minDate } = this.props;
       const { data, type } = this.props.value;
 
       if (type === 'on') {

@@ -1,7 +1,6 @@
 import * as later from 'later';
 import { toJS } from 'mobx';
-import { IType, types } from 'mobx-state-tree';
-import * as moment from 'moment';
+import { types } from 'mobx-state-tree';
 
 import { JSONType } from '../types/json';
 

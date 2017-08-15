@@ -1,8 +1,4 @@
 import * as React from 'react';
-import { FormControl, FormGroup } from 'react-bootstrap';
-
-import EveryBranch, { IValue as IEveryBranchValue } from './EveryBranch';
-import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
 
 export default <T extends {}>({ defaultStates }: { defaultStates: T }) => {
   type IValue = {

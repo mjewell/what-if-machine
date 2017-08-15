@@ -3,7 +3,6 @@ import * as React from 'react';
 import { LineChart } from 'react-d3-basic';
 
 import { IStore } from '../../stores';
-import { ITransaction } from '../../stores/transaction';
 import { ITimeSeriesData } from '../../stores/transactions';
 
 type Props = {
