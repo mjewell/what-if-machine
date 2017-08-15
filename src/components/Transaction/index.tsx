@@ -1,6 +1,8 @@
+import * as later from 'later';
 import * as React from 'react';
-import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
+import { toLater } from '../../utilities/convertRecurrence';
 import Recurrence, { IValue } from '../Recurrence';
 
 export default class Transaction extends React.Component<{}, IValue> {
@@ -12,6 +14,7 @@ export default class Transaction extends React.Component<{}, IValue> {
   onChange = (val: any) => {
     this.setState(val);
     console.log(val);
+    console.log(toLater(val));
   };
 
   render() {
