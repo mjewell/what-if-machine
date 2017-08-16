@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 export type IOnRecurrence = {
   type: 'on';
-  data: moment.Moment | null;
+  data: Date | null;
 };
 
 export type IPeriod = 'days' | 'weeks' | 'months' | 'years';
@@ -15,7 +15,7 @@ export type INeverEnding = {
 
 export type IOnEnding = {
   type: 'on';
-  data: moment.Moment | null;
+  data: Date | null;
 };
 
 export type IAfterEnding = {
@@ -30,7 +30,7 @@ export type IEveryRecurrence = {
   data: {
     count: string | number;
     period: IPeriod;
-    startDate: moment.Moment | null;
+    startDate: Date | null;
     ending: IEnding;
   };
 };

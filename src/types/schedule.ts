@@ -5,13 +5,13 @@ import { IEnding } from './recurrence';
 
 export type IOnSchedule = {
   type: 'on';
-  schedule: later.Recurrence[];
+  schedule: later.RecurrenceBuilder;
 };
 
 export type IEverySchedule = {
   type: 'every';
-  schedule: later.Recurrence[];
-  startDate: moment.Moment;
+  schedule: later.RecurrenceBuilder;
+  startDate: Date;
   ending: IEnding;
 };
 

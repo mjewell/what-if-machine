@@ -13,49 +13,24 @@ export type ITimeSeriesData = {
   amount: number;
 };
 
-const initialSchedule = later.parse
-  .recur()
-  .on(moment().startOf('day').toDate())
-  .fullDate();
-
-const rentSchedule = later.parse.recur().on(1).dayOfMonth();
-
-const salarySchedule = later.parse
-  .recur()
-  .on(6)
-  .dayOfWeek()
-  .every(2)
-  .weekOfYear()
-  .first()
-  .hour();
-
 export const TransactionsStore = types.model('TransactionsStore', {
   transactions: types.optional(types.array(Transaction), [
     {
       id: '1',
-      name: 'initial',
+      name: 'rent',
       amount: 1000,
-      scheduleData: {
-        schedules: initialSchedule.schedules,
-        exceptions: initialSchedule.exceptions
+      recurrence: {
+        type: 'on',
+        data: new Date('2017/09/01')
       }
     },
     {
       id: '2',
-      name: 'rent',
-      amount: -1000,
-      scheduleData: {
-        schedules: rentSchedule.schedules,
-        exceptions: rentSchedule.exceptions
-      }
-    },
-    {
-      id: '3',
       name: 'salary',
-      amount: 1000,
-      scheduleData: {
-        schedules: salarySchedule.schedules,
-        exceptions: salarySchedule.exceptions
+      amount: 1500,
+      recurrence: {
+        type: 'on',
+        data: new Date('2017/10/01')
       }
     }
   ]),
@@ -71,7 +46,6 @@ export const TransactionsStore = types.model('TransactionsStore', {
     );
 
     const range = moment(startDate).twix(endDate, { allDay: true });
-    // tslint:disable-next-line
     const days = (range as any).toArray('days') as moment.Moment[];
 
     let sum = 0;

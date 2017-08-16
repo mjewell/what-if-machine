@@ -1,7 +1,8 @@
 import * as later from 'later';
 import * as moment from 'moment';
 
-import { IPeriod, IRecurrence } from '../types/recurrence';
+import { IEveryRecurrenceData, IRecurrence } from '../stores/types/recurrence';
+import { IPeriod } from '../types/recurrence';
 import { ISchedule } from '../types/schedule';
 
 const periodMap = {
@@ -14,17 +15,19 @@ const periodMap = {
 function setDateConstraints(
   laterPartial: later.RecurrenceBuilder,
   period: IPeriod,
-  startDate: moment.Moment
+  startDate: Date
 ) {
+  const date = moment(startDate);
+
   if (period === 'days') {
     return laterPartial;
   }
 
   if (period === 'weeks') {
-    return laterPartial.on(startDate.day() + 1).dayOfWeek();
+    return laterPartial.on(date.day() + 1).dayOfWeek();
   }
 
-  const dayOfMonth = startDate.date();
+  const dayOfMonth = date.date();
 
   if (period === 'months') {
     if (dayOfMonth > 28) {
@@ -34,7 +37,7 @@ function setDateConstraints(
     return laterPartial.on(dayOfMonth).dayOfMonth();
   }
 
-  const withMonth = laterPartial.on(startDate.month() + 1).month();
+  const withMonth = laterPartial.on(date.month() + 1).month();
 
   if (dayOfMonth > 28) {
     return withMonth.last().dayOfMonth();
@@ -45,30 +48,35 @@ function setDateConstraints(
 
 export const toLater = (recurrence: IRecurrence): ISchedule | null => {
   if (recurrence.type === 'on') {
-    if (recurrence.data) {
-      return {
-        type: 'on',
-        schedule: later.parse
-          .recur()
-          .on(recurrence.data.startOf('day').toDate())
-          .fullDate().schedules
-      };
-    } else {
+    if (!recurrence.data) {
       return null;
     }
+
+    return {
+      type: 'on',
+      schedule: later.parse
+        .recur()
+        .on(moment(recurrence.data as Date).startOf('day').toDate())
+        .fullDate()
+    };
   }
 
-  const { count, period, startDate, ending } = recurrence.data;
+  const {
+    count,
+    period,
+    startDate,
+    ending
+  } = recurrence.data as IEveryRecurrenceData;
 
   if (count && period && startDate) {
     const partial = later.parse.recur().every(+count);
     const withPeriod = partial[periodMap[period]]();
     return {
       type: 'every',
-      schedule: setDateConstraints(withPeriod, period, startDate).schedules,
+      schedule: setDateConstraints(withPeriod, period as IPeriod, startDate),
       startDate,
       ending
-    };
+    } as ISchedule;
   }
 
   return null;

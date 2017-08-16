@@ -35,6 +35,7 @@ export const TEveryRecurrenceData = types.model('EveryRecurrenceData', {
   startDate: types.maybe(types.Date),
   ending: TEnding
 });
+export type IEveryRecurrenceData = typeof TEveryRecurrenceData.Type;
 
 export const TEveryRecurrence = types.model('EveryRecurrence', {
   type: types.literal('every'),
@@ -42,3 +43,4 @@ export const TEveryRecurrence = types.model('EveryRecurrence', {
 });
 
 export const TRecurrence = types.union(TOnRecurrence, TEveryRecurrence);
+export type IRecurrence = typeof TRecurrence.Type;

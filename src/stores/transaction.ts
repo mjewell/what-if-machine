@@ -1,8 +1,8 @@
 import * as later from 'later';
-import { toJS } from 'mobx';
 import { types } from 'mobx-state-tree';
 
-import { JSONType } from '../types/json';
+import { toLater } from '../utilities/convertRecurrence';
+import { IRecurrence, TRecurrence } from './types/recurrence';
 
 type IOccurrenceData = {
   [key: number]: ITransaction;
@@ -14,11 +14,16 @@ export const Transaction = types.model(
     id: types.identifier(),
     name: types.string,
     amount: types.number,
-    scheduleData: JSONType,
+    recurrence: TRecurrence,
     get schedule() {
-      return later.schedule(toJS(this.scheduleData));
+      const laterRecurrence = toLater(this.recurrence);
+      return laterRecurrence && later.schedule(laterRecurrence.schedule);
     },
     getOccurrences(startDate: Date, endDate: Date): IOccurrenceData {
+      if (!this.schedule) {
+        return {};
+      }
+
       const occurrencesArray = this.schedule.next(-1, startDate, endDate);
 
       if (!occurrencesArray) {
@@ -34,17 +39,14 @@ export const Transaction = types.model(
     }
   },
   {
-    // fix this when mobx-state-tree has a solution
-    // tslint:disable-next-line
-    postProcessSnapshot(snapshot: any): any {
-      const schedule = snapshot.scheduleData;
-      return {
-        ...snapshot,
-        scheduleData: {
-          schedules: schedule.schedules,
-          exceptions: schedule.exceptions
-        }
-      };
+    setName(name: string) {
+      this.name = name;
+    },
+    setAmount(amount: number) {
+      this.amount = amount;
+    },
+    setRecurrence(recurrence: IRecurrence) {
+      this.recurrence = recurrence;
     }
   }
 );
