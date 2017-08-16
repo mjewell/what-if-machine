@@ -2,11 +2,19 @@ import * as later from 'later';
 import { types } from 'mobx-state-tree';
 
 import { toLater } from '../utilities/convertRecurrence';
-import { IRecurrence, TRecurrence } from './types/recurrence';
+import {
+  IEveryRecurrenceData,
+  IRecurrence,
+  TRecurrence
+} from './types/recurrence';
 
 type IOccurrenceData = {
-  [key: number]: ITransaction;
+  [key: number]: number;
+  before: number;
 };
+
+const wrapWithArray = (x: any) => (Array.isArray(x) ? x : [x]);
+const minDate = new Date('2000/01/01');
 
 export const Transaction = types.model(
   'Transaction',
@@ -20,25 +28,66 @@ export const Transaction = types.model(
     },
     get schedule() {
       const laterRecurrence = toLater(this.recurrence);
-      return laterRecurrence && later.schedule(laterRecurrence.schedule);
+
+      if (!laterRecurrence) {
+        return null;
+      }
+
+      if (laterRecurrence.type === 'every') {
+        const { type, data } = laterRecurrence.ending;
+        if (!data && type !== 'never') {
+          return null;
+        }
+      }
+
+      return later.schedule(laterRecurrence.schedule);
+    },
+    getOccurrencesArray(rangeEndDate: Date): Date[] {
+      if (!this.schedule || !this.amount) {
+        return [];
+      }
+
+      if (this.recurrence.type === 'on') {
+        return wrapWithArray(this.schedule.next(1, minDate));
+      }
+
+      const data = this.recurrence.data as IEveryRecurrenceData;
+      const startDate = data.startDate!;
+      const ending = data.ending;
+
+      if (ending.type === 'never') {
+        return this.schedule.next(-1, startDate, rangeEndDate);
+      }
+
+      if (ending.type === 'on') {
+        const endDate = ending.data as Date;
+        const upToDate = endDate < rangeEndDate ? endDate : rangeEndDate;
+        return this.schedule.next(-1, startDate, upToDate);
+      }
+
+      return this.schedule.next(ending.data as number, startDate, rangeEndDate);
     },
     getOccurrences(startDate: Date, endDate: Date): IOccurrenceData {
-      if (!this.schedule) {
-        return {};
-      }
+      const occurrencesArray = this.getOccurrencesArray(endDate);
 
-      const occurrencesArray = this.schedule.next(-1, startDate, endDate);
+      return occurrencesArray.reduce(
+        (obj, occurrence) => {
+          if (occurrence < startDate) {
+            return {
+              ...obj,
+              before: obj.before + this.amount
+            };
+          }
 
-      if (!occurrencesArray) {
-        return {};
-      }
-
-      return occurrencesArray.reduce((obj, occurrence) => {
-        return {
-          ...obj,
-          [occurrence.getTime()]: this
-        };
-      }, {});
+          return {
+            ...obj,
+            [occurrence.getTime()]: this.amount
+          };
+        },
+        {
+          before: 0
+        }
+      );
     }
   },
   {

@@ -48,13 +48,14 @@ export const TransactionsStore = types.model('TransactionsStore', {
     const range = moment(startDate).twix(endDate, { allDay: true });
     const days = (range as any).toArray('days') as moment.Moment[];
 
-    let sum = 0;
+    let sum = occurrences.reduce((beforeSum, occurrence) => {
+      return beforeSum + occurrence.before;
+    }, 0);
 
     return days.map(day => {
       const time = day.toDate().getTime();
       sum += occurrences.reduce((daySum, occurrence) => {
-        const occ = occurrence[time];
-        return daySum + (occ ? occ.amount : 0);
+        return daySum + (occurrence[time] || 0);
       }, 0);
 
       return {

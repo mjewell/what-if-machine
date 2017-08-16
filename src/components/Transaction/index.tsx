@@ -34,7 +34,7 @@ export default observer(
           <InputGroup className="mr-2">
             <InputGroup.Addon>$</InputGroup.Addon>
             <FormControl
-              type="text"
+              type="number"
               placeholder="amount"
               value={amountStr}
               onChange={this.setAmount}
