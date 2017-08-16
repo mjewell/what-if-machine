@@ -2,21 +2,19 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import Ending, { IValue as IEndingValue } from './Ending';
-import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
+import {
+  IEnding,
+  IEveryRecurrenceData,
+  IOnEndingData
+} from '../../types/recurrence';
+import Ending from './Ending';
+import OnBranch from './OnBranch';
 
 type IPeriods = 'days' | 'weeks' | 'months' | 'years';
 
-export type IValue = {
-  count: string | number;
-  period: IPeriods;
-  startDate: IOnBranchValue;
-  ending: IEndingValue;
-};
-
 type IProps = {
-  value: IValue;
-  onChange(val: IValue): void;
+  value: IEveryRecurrenceData;
+  onChange(val: IEveryRecurrenceData): void;
 };
 
 export default class EveryBranch extends React.Component<IProps, {}> {
@@ -36,7 +34,7 @@ export default class EveryBranch extends React.Component<IProps, {}> {
     });
   };
 
-  setStartDate = (startDate: IOnBranchValue) => {
+  setStartDate = (startDate: IOnEndingData) => {
     const { onChange, value } = this.props;
     onChange({
       ...value,
@@ -44,7 +42,7 @@ export default class EveryBranch extends React.Component<IProps, {}> {
     });
   };
 
-  setEnding = (ending: IEndingValue) => {
+  setEnding = (ending: IEnding) => {
     const { onChange, value } = this.props;
     onChange({
       ...value,

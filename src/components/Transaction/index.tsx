@@ -4,8 +4,9 @@ import * as React from 'react';
 import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
 import { ITransaction } from '../../stores/transaction';
+import { IRecurrence } from '../../types/recurrence';
 import { toLater } from '../../utilities/convertRecurrence';
-import Recurrence, { IValue } from '../Recurrence';
+import Recurrence from '../Recurrence';
 
 type IProps = {
   transaction: ITransaction;
@@ -47,7 +48,10 @@ export default observer(
             value={name}
             onChange={this.setName}
           />
-          <Recurrence value={recurrence as IValue} onChange={setRecurrence} />
+          <Recurrence
+            value={recurrence as IRecurrence}
+            onChange={setRecurrence}
+          />
         </FormGroup>
       );
     }

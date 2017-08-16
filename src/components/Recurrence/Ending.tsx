@@ -2,19 +2,20 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import AfterBranch, { IValue as IAfterBranchValue } from './AfterBranch';
-import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
+import {
+  IAfterEndingData,
+  IEnding,
+  IEndingData,
+  IOnEndingData
+} from '../../types/recurrence';
+import AfterBranch from './AfterBranch';
+import OnBranch from './OnBranch';
 import withBranchStates from './withBranchStates';
-
-export type IValue = {
-  type: 'never' | 'on' | 'after';
-  data: IOnBranchValue | IAfterBranchValue;
-};
 
 type IProps = {
   minDate?: Date | null;
-  value: IValue;
-  onChange(val: IValue): void;
+  value: IEnding;
+  onChange(val: IEnding): void;
 };
 
 export default withBranchStates({
@@ -34,12 +35,12 @@ export default withBranchStates({
       });
     };
 
-    setData = (data: IOnBranchValue | IAfterBranchValue) => {
+    setData = (data: IEndingData) => {
       const { onChange, value } = this.props;
 
       onChange({
         ...value,
-        data
+        data: data as any
       });
     };
 
@@ -50,7 +51,7 @@ export default withBranchStates({
       if (type === 'on') {
         return (
           <OnBranch
-            value={data as IOnBranchValue}
+            value={data as IOnEndingData}
             onChange={this.setData}
             minDate={minDate}
           />
@@ -58,7 +59,7 @@ export default withBranchStates({
       } else if (type === 'after') {
         return (
           <AfterBranch
-            value={data as IAfterBranchValue}
+            value={data as IAfterEndingData}
             onChange={this.setData}
           />
         );

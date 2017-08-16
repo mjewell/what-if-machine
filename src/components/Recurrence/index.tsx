@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import EveryBranch, { IValue as IEveryBranchValue } from './EveryBranch';
-import OnBranch, { IValue as IOnBranchValue } from './OnBranch';
+import {
+  IEveryRecurrenceData,
+  IOnRecurrenceData,
+  IRecurrence
+} from '../../types/recurrence';
+import EveryBranch from './EveryBranch';
+import OnBranch from './OnBranch';
 import withBranchStates from './withBranchStates';
 
-export type IValue = {
-  type: 'on' | 'every';
-  data: IOnBranchValue | IEveryBranchValue;
-};
-
 type IProps = {
-  value: IValue;
-  onChange(val: IValue): void;
+  value: IRecurrence;
+  onChange(val: IRecurrence): void;
 };
 
 export default withBranchStates({
@@ -39,12 +39,12 @@ export default withBranchStates({
       });
     };
 
-    setData = (data: IOnBranchValue | IEveryBranchValue) => {
+    setData = (data: IOnRecurrenceData | IEveryRecurrenceData) => {
       const { onChange, value } = this.props;
 
       onChange({
         ...value,
-        data
+        data: data as any
       });
     };
 

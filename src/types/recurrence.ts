@@ -1,38 +1,50 @@
 import * as later from 'later';
 import * as moment from 'moment';
 
+export type IOnRecurrenceData = Date | null;
+
 export type IOnRecurrence = {
   type: 'on';
-  data: Date | null;
+  data: IOnRecurrenceData;
 };
 
 export type IPeriod = 'days' | 'weeks' | 'months' | 'years';
 
+export type INeverEndingData = null;
+
 export type INeverEnding = {
   type: 'never';
-  data: null;
+  data: INeverEndingData;
 };
+
+export type IOnEndingData = Date | null;
 
 export type IOnEnding = {
   type: 'on';
-  data: Date | null;
+  data: IOnEndingData;
 };
+
+export type IAfterEndingData = string | number;
 
 export type IAfterEnding = {
   type: 'after';
-  data: string | number;
+  data: IAfterEndingData;
 };
+
+export type IEndingData = INeverEndingData | IOnEndingData | IAfterEndingData;
 
 export type IEnding = INeverEnding | IOnEnding | IAfterEnding;
 
+export type IEveryRecurrenceData = {
+  count: string | number;
+  period: IPeriod;
+  startDate: IOnEndingData;
+  ending: IEnding;
+};
+
 export type IEveryRecurrence = {
   type: 'every';
-  data: {
-    count: string | number;
-    period: IPeriod;
-    startDate: Date | null;
-    ending: IEnding;
-  };
+  data: IEveryRecurrenceData;
 };
 
 export type IRecurrence = IOnRecurrence | IEveryRecurrence;

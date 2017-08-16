@@ -2,14 +2,13 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { FormGroup } from 'react-bootstrap';
 
+import { IOnEndingData } from '../../types/recurrence';
 import DatePicker from '../DatePicker';
 
-export type IValue = Date | null;
-
 type IProps = {
-  minDate?: IValue;
-  value: IValue;
-  onChange(date: IValue): void;
+  minDate?: Date | null;
+  value: IOnEndingData;
+  onChange(date: IOnEndingData): void;
 };
 
 export default class OnBranch extends React.Component<IProps, {}> {

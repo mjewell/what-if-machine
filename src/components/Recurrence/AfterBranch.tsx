@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-export type IValue = string | number;
+import { IAfterEndingData } from '../../types/recurrence';
 
 type IProps = {
-  value: IValue;
-  onChange(count: IValue): void;
+  value: IAfterEndingData;
+  onChange(count: IAfterEndingData): void;
 };
 
 export default class AfterBranch extends React.Component<IProps> {
