@@ -18,7 +18,7 @@ export const TransactionsStore = types.model('TransactionsStore', {
     {
       id: '1',
       name: 'rent',
-      amount: 1000,
+      amountStr: 1000,
       recurrence: {
         type: 'on',
         data: new Date('2017/09/01')
@@ -27,7 +27,7 @@ export const TransactionsStore = types.model('TransactionsStore', {
     {
       id: '2',
       name: 'salary',
-      amount: 1500,
+      amountStr: 1500,
       recurrence: {
         type: 'on',
         data: new Date('2017/10/01')

@@ -18,13 +18,13 @@ export default observer(
     };
 
     setAmount = (e: any) => {
-      this.props.transaction.setAmount(+e.target.value);
+      this.props.transaction.setAmount(e.target.value);
     };
 
     render() {
       const {
         name,
-        amount,
+        amountStr,
         recurrence,
         setRecurrence
       } = this.props.transaction;
@@ -35,7 +35,7 @@ export default observer(
             <FormControl
               type="text"
               placeholder="amount"
-              value={amount}
+              value={amountStr}
               onChange={this.setAmount}
             />
           </InputGroup>

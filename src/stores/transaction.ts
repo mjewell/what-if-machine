@@ -13,8 +13,11 @@ export const Transaction = types.model(
   {
     id: types.identifier(),
     name: types.string,
-    amount: types.number,
+    amountStr: types.union(types.number, types.string),
     recurrence: TRecurrence,
+    get amount() {
+      return +this.amountStr || 0;
+    },
     get schedule() {
       const laterRecurrence = toLater(this.recurrence);
       return laterRecurrence && later.schedule(laterRecurrence.schedule);
@@ -42,8 +45,8 @@ export const Transaction = types.model(
     setName(name: string) {
       this.name = name;
     },
-    setAmount(amount: number) {
-      this.amount = amount;
+    setAmount(amount: number | string) {
+      this.amountStr = amount;
     },
     setRecurrence(recurrence: IRecurrence) {
       this.recurrence = recurrence;
