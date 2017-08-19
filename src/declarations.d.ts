@@ -1,1 +1,1 @@
-declare module 'react-d3-basic';
+declare module 'd3';

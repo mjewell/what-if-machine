@@ -9,7 +9,7 @@ import { Transaction } from './transaction';
 later.date.localTime();
 
 export type ITimeSeriesData = {
-  date: moment.Moment;
+  date: Date;
   amount: number;
 };
 
@@ -59,7 +59,7 @@ export const TransactionsStore = types.model('TransactionsStore', {
       }, 0);
 
       return {
-        date: day,
+        date: day.toDate(),
         amount: sum
       };
     });
