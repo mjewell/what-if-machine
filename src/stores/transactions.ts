@@ -33,7 +33,8 @@ export const TransactionsStore = types.model('TransactionsStore', {
         data: new Date('2017/10/01')
       }
     }
-  ]),
+  ])
+}).views(self => ({
   generateTimeSeries(
     startDateTime: Date,
     endDateTime: Date
@@ -41,7 +42,7 @@ export const TransactionsStore = types.model('TransactionsStore', {
     const startDate = moment(startDateTime).startOf('day').toDate();
     const endDate = moment(endDateTime).startOf('day').toDate();
 
-    const occurrences = this.transactions.map(transaction =>
+    const occurrences = self.transactions.map(transaction =>
       transaction.getOccurrences(startDate, endDate)
     );
 
@@ -64,4 +65,4 @@ export const TransactionsStore = types.model('TransactionsStore', {
       };
     });
   }
-});
+}));

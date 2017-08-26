@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "d3": "^4.10.0",
+    "@vx/curve": "0.0.136",
+    "@vx/event": "0.0.136",
+    "@vx/grid": "0.0.136",
+    "@vx/scale": "0.0.136",
+    "@vx/shape": "0.0.136",
+    "d3-array": "^1.2.0",
     "later": "RickCarlino/later",
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
-    "mobx-state-tree": "^0.9.5",
+    "mobx-state-tree": "^0.10.2",
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-addons-shallow-compare": "^15.6.0",
@@ -18,7 +23,7 @@
     "twix": "^1.2.0"
   },
   "devDependencies": {
-    "@types/d3": "^4.10.0",
+    "@types/d3-array": "^1.2.1",
     "@types/jest": "^20.0.6",
     "@types/later": "^1.2.3",
     "@types/node": "^8.0.19",

@@ -38,7 +38,7 @@ export default <T extends {}>({ defaultStates }: { defaultStates: T }) => {
           });
         }
 
-        onChange(newValue);
+        return onChange(newValue);
       };
 
       render() {
