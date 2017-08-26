@@ -12,13 +12,13 @@ import { Store } from './stores';
 const store = Store.create({});
 const state = localStorage.getItem('state');
 
-// if (state) {
-//   applySnapshot(store, JSON.parse(state));
-// }
+if (state) {
+  applySnapshot(store, JSON.parse(state));
+}
 
-// onSnapshot(store, snapshot => {
-//   localStorage.setItem('state', JSON.stringify(snapshot));
-// });
+onSnapshot(store, snapshot => {
+  localStorage.setItem('state', JSON.stringify(snapshot));
+});
 
 ReactDOM.render(
   <Provider store={store}>

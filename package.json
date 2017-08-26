@@ -20,6 +20,7 @@
     "react-dates": "^12.4.0",
     "react-dom": "^15.6.1",
     "recompose": "^0.24.0",
+    "shortid": "^2.2.8",
     "twix": "^1.2.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@types/react-dates": "^12.1.2",
     "@types/react-dom": "^15.5.2",
     "@types/recompose": "^0.23.3",
+    "@types/shortid": "0.0.29",
     "@types/twix": "^0.6.32",
     "react-scripts-ts": "2.5.0"
   },
