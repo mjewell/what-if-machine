@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vx/axis": "0.0.136",
     "@vx/curve": "0.0.136",
     "@vx/event": "0.0.136",
     "@vx/grid": "0.0.136",
+    "@vx/group": "0.0.136",
     "@vx/scale": "0.0.136",
     "@vx/shape": "0.0.136",
     "d3-array": "^1.2.0",
@@ -35,7 +37,10 @@
     "@types/recompose": "^0.23.3",
     "@types/shortid": "0.0.29",
     "@types/twix": "^0.6.32",
-    "react-scripts-ts": "2.5.0"
+    "react-scripts-ts": "2.5.0",
+    "tslint": "^5.7.0",
+    "tslint-react": "^3.2.0",
+    "typescript": "^2.4.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",

@@ -1,6 +1,8 @@
+import { AxisBottom, AxisLeft } from '@vx/axis';
 import { curveMonotoneX } from '@vx/curve';
 import { localPoint } from '@vx/event';
 import { GridColumns, GridRows } from '@vx/grid';
+import { Group } from '@vx/group';
 import { scaleLinear, scaleTime } from '@vx/scale';
 import { AreaClosed, Bar } from '@vx/shape';
 import { bisector, extent, max } from 'd3-array';
@@ -31,10 +33,10 @@ export default class Graph extends React.Component<Props, {}> {
     const width = 1000;
     const height = 500;
     const margin = {
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0
+      left: 60,
+      right: 20,
+      top: 20,
+      bottom: 60
     };
 
     const xMax = width - margin.left - margin.right;
@@ -55,7 +57,13 @@ export default class Graph extends React.Component<Props, {}> {
 
     return (
       <svg ref={s => (this.svg = s)} width={width} height={height}>
-        <rect x={0} y={0} width={xMax} height={yMax} fill="#222" />
+        <rect
+          x={margin.left}
+          y={margin.top}
+          width={xMax}
+          height={yMax}
+          fill="#222"
+        />
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity={1} />
@@ -65,6 +73,8 @@ export default class Graph extends React.Component<Props, {}> {
         <GridRows
           lineStyle={{ pointerEvents: 'none' }}
           scale={yScale}
+          left={margin.left}
+          top={margin.top}
           width={xMax}
           strokeDasharray="2,2"
           stroke="rgba(255,255,255,0.2)"
@@ -72,20 +82,77 @@ export default class Graph extends React.Component<Props, {}> {
         <GridColumns
           lineStyle={{ pointerEvents: 'none' }}
           scale={xScale}
+          left={margin.left}
+          top={margin.top}
           height={yMax}
           strokeDasharray="2,2"
           stroke="rgba(255,255,255,0.2)"
         />
-        <AreaClosed
-          data={data}
-          xScale={xScale}
-          yScale={yScale}
-          x={xAccessor}
-          y={yAccessor}
-          strokeWidth={1}
-          stroke="url(#gradient)"
-          fill="url(#gradient)"
-          curve={curveMonotoneX}
+        <Group top={margin.top} left={margin.left}>
+          <AreaClosed
+            data={data}
+            xScale={xScale}
+            yScale={yScale}
+            x={xAccessor}
+            y={yAccessor}
+            strokeWidth={1}
+            stroke="url(#gradient)"
+            fill="url(#gradient)"
+            curve={curveMonotoneX}
+          />
+        </Group>
+        <AxisLeft
+          top={margin.top}
+          left={margin.left}
+          scale={yScale}
+          hideZero
+          label={
+            <text
+              fill="#8e205f"
+              textAnchor="middle"
+              fontSize={10}
+              fontFamily="Arial"
+            >
+              Amount ($)
+            </text>
+          }
+          stroke="#1b1a1e"
+          tickLabelComponent={
+            <text
+              fill="#8e205f"
+              textAnchor="end"
+              fontSize={10}
+              fontFamily="Arial"
+              dx="-0.25em"
+              dy="0.25em"
+            />
+          }
+        />
+        <AxisBottom
+          top={height - margin.bottom}
+          left={margin.left}
+          scale={xScale}
+          label={
+            <text
+              fill="#8e205f"
+              textAnchor="middle"
+              fontSize={10}
+              fontFamily="Arial"
+            >
+              Date
+            </text>
+          }
+          stroke={'#1b1a1e'}
+          tickStroke={'#1b1a1e'}
+          tickLabelComponent={
+            <text
+              fill="#8e205f"
+              textAnchor="middle"
+              fontSize={10}
+              fontFamily="Arial"
+              dy="0.25em"
+            />
+          }
         />
         <Bar
           x={0}
