@@ -1,9 +1,11 @@
 import { types } from 'mobx-state-tree';
 
+import { GraphStore } from './graph';
 import { TransactionsStore } from './transactions';
 
 export const Store = types.model('Store', {
-  transactions: types.optional(TransactionsStore, {})
+  transactionsStore: types.optional(TransactionsStore, {}),
+  graphStore: types.optional(GraphStore, {})
 });
 
 export type IStore = typeof Store.Type;

@@ -4,7 +4,7 @@ import { localPoint } from '@vx/event';
 import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
 import { scaleLinear, scaleTime } from '@vx/scale';
-import { AreaClosed, Bar } from '@vx/shape';
+import { Bar, LinePath } from '@vx/shape';
 import { bisector, extent, max, min } from 'd3-array';
 import * as moment from 'moment';
 import * as React from 'react';
@@ -24,8 +24,10 @@ export default class Graph extends React.Component<Props, {}> {
   svg: any;
 
   generateTimeSeries = () => {
-    const { generateTimeSeries } = this.props.store.transactions;
-    return generateTimeSeries(new Date(), moment().add(1, 'year').toDate());
+    const { transactionsStore, graphStore } = this.props.store;
+    const { startDate, endDate } = graphStore;
+    const { generateTimeSeries } = transactionsStore;
+    return generateTimeSeries(startDate, endDate);
   };
 
   render() {
@@ -65,14 +67,8 @@ export default class Graph extends React.Component<Props, {}> {
           y={margin.top}
           width={xMax}
           height={yMax}
-          fill="#222"
+          fill="#FAFAFA"
         />
-        <defs>
-          <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity={1} />
-            <stop offset="100%" stopColor="#FFFFFF" stopOpacity={0.2} />
-          </linearGradient>
-        </defs>
         <GridRows
           lineStyle={{ pointerEvents: 'none' }}
           scale={yScale}
@@ -80,7 +76,7 @@ export default class Graph extends React.Component<Props, {}> {
           top={margin.top}
           width={xMax}
           strokeDasharray="2,2"
-          stroke="rgba(255,255,255,0.2)"
+          stroke="rgba(100,100,100,0.2)"
         />
         <GridColumns
           lineStyle={{ pointerEvents: 'none' }}
@@ -89,18 +85,17 @@ export default class Graph extends React.Component<Props, {}> {
           top={margin.top}
           height={yMax}
           strokeDasharray="2,2"
-          stroke="rgba(255,255,255,0.2)"
+          stroke="rgba(100,100,100,0.2)"
         />
         <Group top={margin.top} left={margin.left}>
-          <AreaClosed
+          <LinePath
             data={data}
             xScale={xScale}
             yScale={yScale}
             x={xAccessor}
             y={yAccessor}
-            strokeWidth={1}
-            stroke="url(#gradient)"
-            fill="url(#gradient)"
+            strokeWidth={2}
+            stroke="#000"
             curve={curveMonotoneX}
           />
         </Group>

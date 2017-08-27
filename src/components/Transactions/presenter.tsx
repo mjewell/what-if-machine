@@ -11,7 +11,7 @@ type IProps = {
 
 export default class Transactions extends React.Component<IProps, {}> {
   removeTransaction = (index: number) => () => {
-    const { removeTransaction } = this.props.store.transactions;
+    const { removeTransaction } = this.props.store.transactionsStore;
     removeTransaction(index);
   };
 
@@ -31,7 +31,7 @@ export default class Transactions extends React.Component<IProps, {}> {
   };
 
   render() {
-    const { transactions, addTransaction } = this.props.store.transactions;
+    const { transactions, addTransaction } = this.props.store.transactionsStore;
     return (
       <div>
         {this.mapTransactionsToLines(transactions)}

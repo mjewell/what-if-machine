@@ -20,8 +20,8 @@ export const TransactionsStore = types
   })
   .views(self => ({
     generateTimeSeries(
-      startDateTime: Date,
-      endDateTime: Date
+      startDateTime: Date | moment.Moment,
+      endDateTime: Date | moment.Moment
     ): ITimeSeriesData[] {
       const startDate = moment(startDateTime).startOf('day').toDate();
       const endDate = moment(endDateTime).startOf('day').toDate();
