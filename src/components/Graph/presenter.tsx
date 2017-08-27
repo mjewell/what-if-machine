@@ -5,7 +5,7 @@ import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
 import { scaleLinear, scaleTime } from '@vx/scale';
 import { AreaClosed, Bar } from '@vx/shape';
-import { bisector, extent, max } from 'd3-array';
+import { bisector, extent, max, min } from 'd3-array';
 import * as moment from 'moment';
 import * as React from 'react';
 
@@ -33,7 +33,7 @@ export default class Graph extends React.Component<Props, {}> {
     const width = 1000;
     const height = 500;
     const margin = {
-      left: 60,
+      left: 90,
       right: 20,
       top: 20,
       bottom: 60
@@ -48,7 +48,10 @@ export default class Graph extends React.Component<Props, {}> {
     });
     const yScale = scaleLinear({
       range: [yMax, 0],
-      domain: [0, (max(data, yAccessor) || 0) + yMax / 3],
+      domain: [
+        (min(data, yAccessor) || 0) - yMax / 3,
+        (max(data, yAccessor) || 0) + yMax / 3
+      ],
       nice: true
     });
 
@@ -105,26 +108,23 @@ export default class Graph extends React.Component<Props, {}> {
           top={margin.top}
           left={margin.left}
           scale={yScale}
-          hideZero
           label={
             <text
-              fill="#8e205f"
               textAnchor="middle"
-              fontSize={10}
+              fontSize={12}
               fontFamily="Arial"
+              dy="-1em"
             >
               Amount ($)
             </text>
           }
-          stroke="#1b1a1e"
           tickLabelComponent={
             <text
-              fill="#8e205f"
               textAnchor="end"
-              fontSize={10}
+              fontSize={12}
               fontFamily="Arial"
               dx="-0.25em"
-              dy="0.25em"
+              dy="0.3em"
             />
           }
         />
@@ -133,22 +133,14 @@ export default class Graph extends React.Component<Props, {}> {
           left={margin.left}
           scale={xScale}
           label={
-            <text
-              fill="#8e205f"
-              textAnchor="middle"
-              fontSize={10}
-              fontFamily="Arial"
-            >
+            <text textAnchor="middle" fontSize={12} fontFamily="Arial">
               Date
             </text>
           }
-          stroke={'#1b1a1e'}
-          tickStroke={'#1b1a1e'}
           tickLabelComponent={
             <text
-              fill="#8e205f"
               textAnchor="middle"
-              fontSize={10}
+              fontSize={12}
               fontFamily="Arial"
               dy="0.25em"
             />
