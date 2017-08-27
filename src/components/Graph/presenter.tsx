@@ -86,7 +86,7 @@ class Graph extends React.Component<Props, {}> {
     const { tooltipData, tooltipLeft, tooltipTop } = this.state;
 
     return (
-      <div>
+      <div style={{ width: width, height: height }}>
         <svg ref={s => (this.svg = s)} width={width} height={height}>
           <rect
             x={margin.left}
@@ -232,7 +232,7 @@ class Graph extends React.Component<Props, {}> {
           <div>
             <Tooltip
               top={tooltipTop - 12}
-              left={tooltipLeft + 30 + margin.left}
+              left={tooltipLeft + 12}
               style={{
                 backgroundColor: 'rgba(92, 119, 235, 1.000)',
                 color: 'white'
@@ -242,7 +242,7 @@ class Graph extends React.Component<Props, {}> {
             </Tooltip>
             <Tooltip
               top={yMax - 14 + margin.top}
-              left={tooltipLeft + 20 + margin.left}
+              left={tooltipLeft}
               style={{
                 transform: 'translateX(-50%)'
               }}
