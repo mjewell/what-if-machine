@@ -1,12 +1,9 @@
 import * as later from 'later';
 import { types } from 'mobx-state-tree';
+import * as moment from 'moment';
 
 import { toLater } from '../utilities/convertRecurrence';
-import {
-  IEveryRecurrenceData,
-  IRecurrence,
-  TRecurrence
-} from './types/recurrence';
+import { IEveryRecurrenceData, IRecurrence } from './types/recurrence';
 
 type IOccurrenceData = {
   [key: number]: number;
@@ -59,7 +56,7 @@ export const Transaction = types
       }
 
       const data = self.recurrence.data as IEveryRecurrenceData;
-      const startDate = data.startDate!;
+      const startDate = moment(data.startDate!).startOf('day').toDate();
       const ending = data.ending;
 
       if (ending.type === 'never') {
@@ -67,12 +64,13 @@ export const Transaction = types
       }
 
       if (ending.type === 'on') {
-        const endDate = ending.data as Date;
+        const endDate = moment(ending.data as Date).startOf('day').toDate();
         const upToDate = endDate < rangeEndDate ? endDate : rangeEndDate;
         return self.schedule.next(-1, startDate, upToDate);
       }
 
-      return self.schedule.next(ending.data as number, startDate, rangeEndDate);
+      const count = ending.data as number;
+      return wrapWithArray(self.schedule.next(+count, startDate, rangeEndDate));
     }
   }))
   .views(self => ({
