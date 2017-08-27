@@ -34,6 +34,7 @@ export default observer(
           <InputGroup className="mr-2">
             <InputGroup.Addon>$</InputGroup.Addon>
             <FormControl
+              style={{ width: 130 }}
               type="number"
               placeholder="amount"
               value={amountStr}

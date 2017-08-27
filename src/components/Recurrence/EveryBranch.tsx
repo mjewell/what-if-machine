@@ -57,6 +57,7 @@ export default class EveryBranch extends React.Component<IProps, {}> {
     return (
       <FormGroup className="ml-2">
         <FormControl
+          style={{ width: 100 }}
           type="number"
           min="1"
           placeholder="number"
