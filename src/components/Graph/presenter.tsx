@@ -5,7 +5,7 @@ import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
 import { scaleLinear, scaleTime } from '@vx/scale';
 import { Bar, Line, LinePath } from '@vx/shape';
-import { Tooltip, withTooltip } from '@vx/tooltip';
+import { Tooltip } from '@vx/tooltip';
 import { bisector, extent, max, min } from 'd3-array';
 import * as moment from 'moment';
 import * as React from 'react';
@@ -27,7 +27,7 @@ const xAccessor = (d: ITimeSeriesData) => d.date;
 const yAccessor = (d: ITimeSeriesData) => d.amount;
 const bisectDate = bisector(xAccessor).left;
 
-class Graph extends React.Component<Props, {}> {
+export default class Graph extends React.Component<Props, {}> {
   state = { tooltipData: null, tooltipLeft: 0, tooltipTop: 0 };
   svg: any;
 
@@ -254,5 +254,3 @@ class Graph extends React.Component<Props, {}> {
     );
   }
 }
-
-export default withTooltip(Graph);
