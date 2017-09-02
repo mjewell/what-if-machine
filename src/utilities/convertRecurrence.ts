@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import { RRule } from 'rrule';
 
 import { IEveryRecurrenceData, IRecurrence } from '../stores/types/recurrence';

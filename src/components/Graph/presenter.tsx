@@ -7,7 +7,6 @@ import { scaleLinear, scaleTime } from '@vx/scale';
 import { Bar, Line, LinePath } from '@vx/shape';
 import { Tooltip } from '@vx/tooltip';
 import { bisector, extent, max, min } from 'd3-array';
-import * as moment from 'moment';
 import * as React from 'react';
 
 import { IStore } from '../../stores';

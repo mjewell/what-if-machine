@@ -9,6 +9,10 @@ import { DateOnly } from '../../utilities/DateOnly';
 
 export type IValue = Date | null;
 
+type IFocusedArg = {
+  focused: boolean;
+};
+
 type IProps = {
   minDate?: IValue;
   date: IValue;
@@ -18,8 +22,7 @@ type IProps = {
 export default class DatePicker extends React.Component<IProps> {
   state = { focused: false };
 
-  setFocused = ({ focused }: { focused: boolean }) =>
-    this.setState({ focused });
+  setFocused = ({ focused }: IFocusedArg) => this.setState({ focused });
 
   isOutsideRange = (minDate?: IValue) => {
     if (!minDate) {

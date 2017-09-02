@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 export type IOnRecurrenceData = Date | null;
 
 export type IOnRecurrence = {
