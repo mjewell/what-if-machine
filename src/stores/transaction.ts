@@ -1,5 +1,4 @@
 import { types } from 'mobx-state-tree';
-import * as moment from 'moment';
 
 import { toRRule } from '../utilities/convertRecurrence';
 import { IEveryRecurrenceData, IRecurrence } from './types/recurrence';
@@ -8,6 +7,8 @@ type IOccurrenceData = {
   [key: number]: number;
   before: number;
 };
+
+const minDate = new Date('2000/01/01');
 
 export const Transaction = types
   .model('Transaction', {
@@ -34,25 +35,11 @@ export const Transaction = types
         return [];
       }
 
-      if (self.recurrence.type === 'on') {
-        return self.schedule.all();
-      }
-
-      const data = self.recurrence.data as IEveryRecurrenceData;
-      const ending = data.ending;
-      const startDate = moment(data.startDate!)
-        .startOf('day')
-        .toDate();
-
-      if (ending.type === 'on') {
-        const endDate = moment(ending.data as Date)
-          .startOf('day')
-          .toDate();
-        const upToDate = endDate < rangeEndDate ? endDate : rangeEndDate;
-        return self.schedule.between(startDate, upToDate, true);
-      }
-
-      return self.schedule.between(startDate, rangeEndDate, true);
+      return self.schedule.between(
+        self.recurrence.data.startDate || minDate,
+        rangeEndDate,
+        true
+      );
     }
   }))
   .views(self => ({

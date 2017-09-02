@@ -16,35 +16,16 @@ export const TransactionsStore = types
     transactions: types.optional(types.array(Transaction), [])
   })
   .views(self => {
-    function getOccurrences(
-      startDateTime: Date | moment.Moment,
-      endDateTime: Date | moment.Moment
-    ) {
-      const startDate = moment(startDateTime)
-        .startOf('day')
-        .toDate();
-      const endDate = moment(endDateTime)
-        .startOf('day')
-        .toDate();
-
+    function getOccurrences(startDate: Date, endDate: Date) {
       return self.transactions.map(transaction =>
         transaction.getOccurrences(startDate, endDate)
       );
     }
 
     return {
-      generateTimeSeries(
-        startDateTime: Date | moment.Moment,
-        endDateTime: Date | moment.Moment
-      ): ITimeSeriesData[] {
-        const occurrences = getOccurrences(startDateTime, endDateTime);
+      generateTimeSeries(startDate: Date, endDate: Date): ITimeSeriesData[] {
+        const occurrences = getOccurrences(startDate, endDate);
 
-        const startDate = moment(startDateTime)
-          .startOf('day')
-          .toDate();
-        const endDate = moment(endDateTime)
-          .startOf('day')
-          .toDate();
         const range = moment(startDate).twix(endDate, { allDay: true });
         const days = (range as any).toArray('days') as moment.Moment[];
 
@@ -52,24 +33,21 @@ export const TransactionsStore = types
           return beforeSum + occurrence.before;
         }, 0);
 
-        return days.map(day => {
-          const time = day.toDate().getTime();
+        return days.map(day => day.toDate()).map(day => {
+          const time = day.getTime();
           sum += occurrences.reduce((daySum, occurrence) => {
             return daySum + (occurrence[time] || 0);
           }, 0);
 
           return {
-            date: day.toDate(),
+            date: day,
             amount: sum
           };
         });
       },
 
-      generateAmountData(
-        startDateTime: Date | moment.Moment,
-        endDateTime: Date | moment.Moment
-      ): any {
-        const occurrences = getOccurrences(startDateTime, endDateTime);
+      generateAmountData(startDate: Date, endDate: Date): any {
+        const occurrences = getOccurrences(startDate, endDate);
 
         const beforeSums = occurrences.map(occurrence => occurrence.before);
         const duringSums = occurrences.map(occurrence => {

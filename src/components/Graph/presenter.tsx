@@ -12,6 +12,7 @@ import * as React from 'react';
 
 import { IStore } from '../../stores';
 import { ITimeSeriesData } from '../../stores/transactions';
+import { DateOnly } from '../../utilities/DateOnly';
 
 type Props = {
   store: IStore;
@@ -35,7 +36,10 @@ export default class Graph extends React.Component<Props, {}> {
     const { transactionsStore, graphStore } = this.props.store;
     const { startDate, endDate } = graphStore;
     const { generateTimeSeries } = transactionsStore;
-    return generateTimeSeries(startDate, endDate);
+    return generateTimeSeries(
+      new DateOnly(startDate).dateTime,
+      new DateOnly(endDate).dateTime
+    );
   };
 
   hideTooltip = () => {

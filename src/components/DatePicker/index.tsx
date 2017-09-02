@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { SingleDatePicker } from 'react-dates';
 
+import { DateOnly } from '../../utilities/DateOnly';
+
 export type IValue = Date | null;
 
 type IProps = {
@@ -31,7 +33,7 @@ export default class DatePicker extends React.Component<IProps> {
   };
 
   onDateChange = (date: moment.Moment | null) => {
-    return this.props.onDateChange(date && date.startOf('day').toDate());
+    return this.props.onDateChange(date && new DateOnly(date).dateTime);
   };
 
   render() {
