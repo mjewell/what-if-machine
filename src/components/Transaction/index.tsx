@@ -1,11 +1,9 @@
-import * as later from 'later';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
 import { ITransaction } from '../../stores/transaction';
 import { IRecurrence } from '../../types/recurrence';
-import { toLater } from '../../utilities/convertRecurrence';
 import Recurrence from '../Recurrence';
 
 type IProps = {

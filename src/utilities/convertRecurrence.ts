@@ -1,64 +1,27 @@
-import * as later from 'later';
 import * as moment from 'moment';
+import { RRule } from 'rrule';
 
 import { IEveryRecurrenceData, IRecurrence } from '../stores/types/recurrence';
 import { IPeriod } from '../types/recurrence';
-import { ISchedule } from '../types/schedule';
 
 const periodMap = {
-  days: 'dayOfYear',
-  weeks: 'weekOfYear',
-  months: 'month',
-  years: 'year'
+  days: 'DAILY',
+  weeks: 'WEEKLY',
+  months: 'MONTHLY',
+  years: 'YEARLY'
 };
 
-function setDateConstraints(
-  laterPartial: later.RecurrenceBuilder,
-  period: IPeriod,
-  startDate: Date
-) {
-  const date = moment(startDate);
-
-  if (period === 'days') {
-    return laterPartial;
-  }
-
-  if (period === 'weeks') {
-    return laterPartial.on(date.day() + 1).dayOfWeek();
-  }
-
-  const dayOfMonth = date.date();
-
-  if (period === 'months') {
-    if (dayOfMonth > 28) {
-      return laterPartial.last().dayOfMonth();
-    }
-
-    return laterPartial.on(dayOfMonth).dayOfMonth();
-  }
-
-  const withMonth = laterPartial.on(date.month() + 1).month();
-
-  if (dayOfMonth > 28) {
-    return withMonth.last().dayOfMonth();
-  }
-
-  return withMonth.on(dayOfMonth).dayOfMonth();
-}
-
-export const toLater = (recurrence: IRecurrence): ISchedule | null => {
+export const toRRule = (recurrence: IRecurrence): RRule | null => {
   if (recurrence.type === 'on') {
     if (!recurrence.data) {
       return null;
     }
 
-    return {
-      type: 'on',
-      schedule: later.parse
-        .recur()
-        .on(moment(recurrence.data as Date).startOf('day').toDate())
-        .fullDate()
-    };
+    return new RRule({
+      freq: RRule.DAILY,
+      dtstart: new Date(recurrence.data as Date),
+      count: 1
+    });
   }
 
   const {
@@ -69,14 +32,35 @@ export const toLater = (recurrence: IRecurrence): ISchedule | null => {
   } = recurrence.data as IEveryRecurrenceData;
 
   if (count && period && startDate) {
-    const partial = later.parse.recur().every(+count);
-    const withPeriod = partial[periodMap[period]]();
-    return {
-      type: 'every',
-      schedule: setDateConstraints(withPeriod, period as IPeriod, startDate),
-      startDate,
-      ending
-    } as ISchedule;
+    const { type, data: endingData } = ending;
+
+    const sharedOptions = {
+      freq: RRule[periodMap[period]],
+      dtstart: new Date(startDate),
+      interval: +count
+    };
+
+    if (type === 'never') {
+      return new RRule(sharedOptions);
+    }
+
+    if (!endingData) {
+      return null;
+    }
+
+    if (type === 'on') {
+      return new RRule({
+        ...sharedOptions,
+        until: new Date(endingData as Date)
+      });
+    }
+
+    if (type === 'after') {
+      return new RRule({
+        ...sharedOptions,
+        count: +endingData
+      });
+    }
   }
 
   return null;

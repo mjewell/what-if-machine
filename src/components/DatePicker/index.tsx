@@ -31,7 +31,7 @@ export default class DatePicker extends React.Component<IProps> {
   };
 
   onDateChange = (date: moment.Moment | null) => {
-    return this.props.onDateChange(date && date.toDate());
+    return this.props.onDateChange(date && date.startOf('day').toDate());
   };
 
   render() {

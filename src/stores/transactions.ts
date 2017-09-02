@@ -1,13 +1,10 @@
 import 'twix';
 
-import * as later from 'later';
 import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
 import { generate } from 'shortid';
 
 import { Transaction } from './transaction';
-
-later.date.localTime();
 
 export type ITimeSeriesData = {
   date: Date;
@@ -23,8 +20,12 @@ export const TransactionsStore = types
       startDateTime: Date | moment.Moment,
       endDateTime: Date | moment.Moment
     ) {
-      const startDate = moment(startDateTime).startOf('day').toDate();
-      const endDate = moment(endDateTime).startOf('day').toDate();
+      const startDate = moment(startDateTime)
+        .startOf('day')
+        .toDate();
+      const endDate = moment(endDateTime)
+        .startOf('day')
+        .toDate();
 
       return self.transactions.map(transaction =>
         transaction.getOccurrences(startDate, endDate)
@@ -38,8 +39,12 @@ export const TransactionsStore = types
       ): ITimeSeriesData[] {
         const occurrences = getOccurrences(startDateTime, endDateTime);
 
-        const startDate = moment(startDateTime).startOf('day').toDate();
-        const endDate = moment(endDateTime).startOf('day').toDate();
+        const startDate = moment(startDateTime)
+          .startOf('day')
+          .toDate();
+        const endDate = moment(endDateTime)
+          .startOf('day')
+          .toDate();
         const range = moment(startDate).twix(endDate, { allDay: true });
         const days = (range as any).toArray('days') as moment.Moment[];
 
@@ -68,9 +73,11 @@ export const TransactionsStore = types
 
         const beforeSums = occurrences.map(occurrence => occurrence.before);
         const duringSums = occurrences.map(occurrence => {
-          return Object.keys(occurrence).reduce((sum, time) => {
-            return sum + occurrence[time];
-          }, 0);
+          return Object.keys(occurrence)
+            .filter(k => k !== 'before')
+            .reduce((sum, time) => {
+              return sum + occurrence[time];
+            }, 0);
         });
 
         return self.transactions.map((transaction, index) => {

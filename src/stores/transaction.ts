@@ -1,17 +1,13 @@
-import * as later from 'later';
 import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
 
-import { toLater } from '../utilities/convertRecurrence';
+import { toRRule } from '../utilities/convertRecurrence';
 import { IEveryRecurrenceData, IRecurrence } from './types/recurrence';
 
 type IOccurrenceData = {
   [key: number]: number;
   before: number;
 };
-
-const wrapWithArray = (x: any) => (Array.isArray(x) ? x : [x]);
-const minDate = new Date('2000/01/01');
 
 export const Transaction = types
   .model('Transaction', {
@@ -29,20 +25,7 @@ export const Transaction = types
       return +self.amountStr || 0;
     },
     get schedule() {
-      const laterRecurrence = toLater(self.recurrence);
-
-      if (!laterRecurrence) {
-        return null;
-      }
-
-      if (laterRecurrence.type === 'every') {
-        const { type, data } = laterRecurrence.ending;
-        if (!data && type !== 'never') {
-          return null;
-        }
-      }
-
-      return later.schedule(laterRecurrence.schedule);
+      return toRRule(self.recurrence);
     }
   }))
   .views(self => ({
@@ -52,25 +35,24 @@ export const Transaction = types
       }
 
       if (self.recurrence.type === 'on') {
-        return wrapWithArray(self.schedule.next(1, minDate));
+        return self.schedule.all();
       }
 
       const data = self.recurrence.data as IEveryRecurrenceData;
-      const startDate = moment(data.startDate!).startOf('day').toDate();
       const ending = data.ending;
-
-      if (ending.type === 'never') {
-        return self.schedule.next(-1, startDate, rangeEndDate);
-      }
+      const startDate = moment(data.startDate!)
+        .startOf('day')
+        .toDate();
 
       if (ending.type === 'on') {
-        const endDate = moment(ending.data as Date).startOf('day').toDate();
+        const endDate = moment(ending.data as Date)
+          .startOf('day')
+          .toDate();
         const upToDate = endDate < rangeEndDate ? endDate : rangeEndDate;
-        return self.schedule.next(-1, startDate, upToDate);
+        return self.schedule.between(startDate, upToDate, true);
       }
 
-      const count = ending.data as number;
-      return wrapWithArray(self.schedule.next(+count, startDate, rangeEndDate));
+      return self.schedule.between(startDate, rangeEndDate, true);
     }
   }))
   .views(self => ({
