@@ -44,31 +44,6 @@ export const TransactionsStore = types
             amount: sum
           };
         });
-      },
-
-      generateAmountData(startDate: Date, endDate: Date): any {
-        const occurrences = getOccurrences(startDate, endDate);
-
-        const beforeSums = occurrences.map(occurrence => occurrence.before);
-        const duringSums = occurrences.map(occurrence => {
-          return Object.keys(occurrence)
-            .filter(k => k !== 'before')
-            .reduce((sum, time) => {
-              return sum + occurrence[time];
-            }, 0);
-        });
-
-        return self.transactions.map((transaction, index) => {
-          const before = beforeSums[index];
-          const during = duringSums[index];
-          return {
-            id: transaction.id,
-            name: transaction.name,
-            before,
-            during,
-            total: before + during
-          };
-        });
       }
     };
   })

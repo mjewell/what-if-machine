@@ -18,7 +18,7 @@ type Props = {
 };
 
 type ITooltipData = {
-  data: any;
+  data: ITimeSeriesData;
   left: number;
   top: number;
 };

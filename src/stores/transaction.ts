@@ -66,6 +66,23 @@ export const Transaction = types
       );
     }
   }))
+  .views(self => ({
+    getTotals(startDate: Date, endDate: Date): any {
+      const occurrences = self.getOccurrences(startDate, endDate);
+
+      const during = Object.keys(occurrences)
+        .filter(k => k !== 'before')
+        .reduce((sum, time) => {
+          return sum + occurrences[time];
+        }, 0);
+
+      return {
+        before: occurrences.before,
+        during,
+        total: occurrences.before + during
+      };
+    }
+  }))
   .actions(self => ({
     setName(name: string) {
       self.name = name;
