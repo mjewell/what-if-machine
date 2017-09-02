@@ -3,6 +3,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import * as moment from 'moment';
 import * as React from 'react';
 import { SingleDatePicker } from 'react-dates';
+import { generate } from 'shortid';
 
 import { DateOnly } from '../../utilities/DateOnly';
 
@@ -43,7 +44,7 @@ export default class DatePicker extends React.Component<IProps> {
 
     return (
       <SingleDatePicker
-        id="datepicker"
+        id={generate()}
         focused={focused}
         onFocusChange={this.setFocused}
         numberOfMonths={1}
