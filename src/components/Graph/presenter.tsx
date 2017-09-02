@@ -76,17 +76,14 @@ export default class Graph extends React.Component<Props, {}> {
     });
     const yScale = scaleLinear({
       range: [yMax, 0],
-      domain: [
-        (min(data, yAccessor) || 0) - yMax / 3,
-        (max(data, yAccessor) || 0) + yMax / 3
-      ],
+      domain: [min(data, yAccessor) || 0, max(data, yAccessor) || 0],
       nice: true
     });
 
     const { tooltipData, tooltipLeft, tooltipTop } = this.state;
 
     return (
-      <div style={{ width: width, height: height }}>
+      <div style={{ width: width, height: height, position: 'relative' }}>
         <svg ref={s => (this.svg = s)} width={width} height={height}>
           <rect
             x={margin.left}
@@ -196,10 +193,10 @@ export default class Graph extends React.Component<Props, {}> {
               });
             }}
           />
-          {tooltipData &&
+          {tooltipData && (
             <g>
               <Line
-                from={{ x: tooltipLeft, y: 0 + margin.top }}
+                from={{ x: tooltipLeft, y: margin.top }}
                 to={{ x: tooltipLeft, y: yMax + margin.top }}
                 stroke="rgba(0, 0, 0, 1.000)"
                 strokeWidth={2}
@@ -226,9 +223,10 @@ export default class Graph extends React.Component<Props, {}> {
                 strokeWidth={2}
                 style={{ pointerEvents: 'none' }}
               />
-            </g>}
+            </g>
+          )}
         </svg>
-        {tooltipData &&
+        {tooltipData && (
           <div>
             <Tooltip
               top={tooltipTop - 12}
@@ -249,7 +247,8 @@ export default class Graph extends React.Component<Props, {}> {
             >
               {this.formatDate(xAccessor(tooltipData))}
             </Tooltip>
-          </div>}
+          </div>
+        )}
       </div>
     );
   }
