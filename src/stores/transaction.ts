@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 
 import { toRRule } from '../utilities/convertRecurrence';
-import { IEveryRecurrenceData, IRecurrence } from './types/recurrence';
+import { IRecurrence } from './types/recurrence';
 
 type IOccurrenceData = {
   [key: number]: number;

@@ -3,20 +3,21 @@ import { Table } from 'react-bootstrap';
 
 import { DateOnly } from '../../utilities/DateOnly';
 
-function generateStyles(amount: number, isSubtotal: boolean): any {
-  const styles = { fontWeight: isSubtotal ? 'bold' : 'normal' };
+function generateClassNames(amount: number, isSubtotal: boolean): string {
+  let classNames = ['align-middle'];
+
+  if (isSubtotal) {
+    classNames.push('font-weight-bold');
+  }
 
   if (amount > 0) {
-    return { color: 'green', ...styles };
+    classNames.push('text-success');
+  } else if (amount < 0) {
+    classNames.push('text-danger');
   }
 
-  if (amount < 0) {
-    return { color: 'red', ...styles };
-  }
-
-  return styles;
+  return classNames.join(' ');
 }
-
 export default function Row({
   id,
   name,
@@ -27,10 +28,10 @@ export default function Row({
 }: any) {
   return (
     <tr>
-      <td style={generateStyles(0, isSubtotal)}>{name}</td>
-      <td style={generateStyles(before, isSubtotal)}>{before}</td>
-      <td style={generateStyles(during, isSubtotal)}>{during}</td>
-      <td style={generateStyles(total, isSubtotal)}>{total}</td>
+      <td className={generateClassNames(0, isSubtotal)}>{name}</td>
+      <td className={generateClassNames(before, isSubtotal)}>{before}</td>
+      <td className={generateClassNames(during, isSubtotal)}>{during}</td>
+      <td className={generateClassNames(total, isSubtotal)}>{total}</td>
     </tr>
   );
 }

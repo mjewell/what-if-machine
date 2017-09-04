@@ -1,5 +1,4 @@
 import { getRoot, types } from 'mobx-state-tree';
-import * as moment from 'moment';
 
 import { IStore } from '../../stores';
 

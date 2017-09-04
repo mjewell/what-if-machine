@@ -10,8 +10,6 @@ import {
 import Ending from './Ending';
 import OnBranch from './OnBranch';
 
-type IPeriods = 'days' | 'weeks' | 'months' | 'years';
-
 type IProps = {
   value: IEveryRecurrenceData;
   onChange(val: IEveryRecurrenceData): void;

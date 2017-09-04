@@ -17,8 +17,14 @@ type Props = {
   store: IStore;
 };
 
+type State = {
+  tooltipData: ITimeSeriesData | null;
+  tooltipLeft: number;
+  tooltipTop: number;
+};
+
 type ITooltipData = {
-  data: ITimeSeriesData;
+  data: ITimeSeriesData | null;
   left: number;
   top: number;
 };
@@ -27,8 +33,8 @@ const xAccessor = (d: ITimeSeriesData) => d.date;
 const yAccessor = (d: ITimeSeriesData) => d.amount;
 const bisectDate = bisector(xAccessor).left;
 
-export default class Graph extends React.Component<Props, {}> {
-  state = { tooltipData: null, tooltipLeft: 0, tooltipTop: 0 };
+export default class Graph extends React.Component<Props, State> {
+  state: State = { tooltipData: null, tooltipLeft: 0, tooltipTop: 0 };
   svg: any;
 
   generateTimeSeries = () => {
