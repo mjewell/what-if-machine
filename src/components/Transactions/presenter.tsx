@@ -3,40 +3,27 @@ import { Button, Form } from 'react-bootstrap';
 
 import { ITransaction, ITransactionsStore } from '../../stores';
 import Transaction from '../Transaction';
+import Row from './row';
 
-type IProps = {
+export type IProps = {
   removeTransaction: (index: number) => () => void;
-  addTransaction: ITransactionsStore['addTransaction'];
-  transactions: ITransactionsStore['transactions'];
+  addTransaction: () => void;
+  transactions: ITransaction[];
 };
 
-export default class Transactions extends React.Component<IProps, {}> {
-  mapTransactionsToLines = (transactions: ITransaction[]) => {
-    const { removeTransaction } = this.props;
-
-    return transactions.map((t, index) => (
-      <Form inline className="p-3" key={t.id as string}>
-        <Transaction transaction={t} />
-        <Button
-          bsStyle="danger"
-          className="ml-3"
-          onClick={removeTransaction(index)}
-        >
-          Delete
-        </Button>
-      </Form>
-    ));
-  };
-
-  render() {
-    const { transactions, addTransaction } = this.props;
-    return (
-      <div>
-        {this.mapTransactionsToLines(transactions)}
-        <Button bsStyle="success" onClick={addTransaction}>
-          Add Another Transaction
-        </Button>
-      </div>
-    );
-  }
+export default function Transactions({
+  transactions,
+  addTransaction,
+  removeTransaction
+}: IProps) {
+  return (
+    <div>
+      {transactions.map((t, index) => (
+        <Row transaction={t} removeTransaction={removeTransaction(index)} />
+      ))}
+      <Button bsStyle="success" onClick={addTransaction}>
+        Add Transaction
+      </Button>
+    </div>
+  );
 }
