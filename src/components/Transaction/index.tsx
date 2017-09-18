@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import * as React from 'react';
 import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
-import { ITransaction } from '../../stores/transaction';
+import { ITransaction } from '../../stores';
 import { IRecurrence } from '../../types/recurrence';
 import Recurrence from '../Recurrence';
 

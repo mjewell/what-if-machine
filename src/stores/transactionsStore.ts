@@ -56,3 +56,5 @@ export const TransactionsStore = types
       self.transactions.splice(index, 1);
     }
   }));
+
+export type ITransactionsStore = typeof TransactionsStore.Type;

@@ -1,6 +1,6 @@
 import { RRule } from 'rrule';
 
-import { IEveryRecurrenceData, IRecurrence } from '../stores/types/recurrence';
+import { IEveryRecurrenceData, IRecurrence } from '../stores';
 
 const periodMap = {
   days: 'DAILY',

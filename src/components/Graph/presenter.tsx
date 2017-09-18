@@ -9,8 +9,7 @@ import { Tooltip } from '@vx/tooltip';
 import { bisector, extent, max, min } from 'd3-array';
 import * as React from 'react';
 
-import { IStore } from '../../stores';
-import { ITimeSeriesData } from '../../stores/transactions';
+import { IStore, ITimeSeriesData } from '../../stores';
 import { DateOnly } from '../../utilities/DateOnly';
 
 type Props = {

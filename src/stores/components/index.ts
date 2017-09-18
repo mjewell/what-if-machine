@@ -7,3 +7,5 @@ export const ComponentsStore = types.model('ComponentsStore', {
 });
 
 export type IStore = typeof ComponentsStore.Type;
+
+export * from './OverviewTable';

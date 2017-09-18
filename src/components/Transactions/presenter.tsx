@@ -1,37 +1,35 @@
 import * as React from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-import { IStore } from '../../stores/index';
-import { ITransaction } from '../../stores/transaction';
+import { ITransaction, ITransactionsStore } from '../../stores';
 import Transaction from '../Transaction';
 
 type IProps = {
-  store: IStore;
+  removeTransaction: (index: number) => () => void;
+  addTransaction: ITransactionsStore['addTransaction'];
+  transactions: ITransactionsStore['transactions'];
 };
 
 export default class Transactions extends React.Component<IProps, {}> {
-  removeTransaction = (index: number) => () => {
-    const { removeTransaction } = this.props.store.transactionsStore;
-    removeTransaction(index);
-  };
-
   mapTransactionsToLines = (transactions: ITransaction[]) => {
-    return transactions.map((t, index) =>
+    const { removeTransaction } = this.props;
+
+    return transactions.map((t, index) => (
       <Form inline className="p-3" key={t.id as string}>
         <Transaction transaction={t} />
         <Button
           bsStyle="danger"
           className="ml-3"
-          onClick={this.removeTransaction(index)}
+          onClick={removeTransaction(index)}
         >
           Delete
         </Button>
       </Form>
-    );
+    ));
   };
 
   render() {
-    const { transactions, addTransaction } = this.props.store.transactionsStore;
+    const { transactions, addTransaction } = this.props;
     return (
       <div>
         {this.mapTransactionsToLines(transactions)}
