@@ -8,6 +8,12 @@ type IOccurrenceData = {
   before: number;
 };
 
+type ITotalData = {
+  before: number;
+  during: number;
+  total: number;
+};
+
 const minDate = new Date('2000/01/01');
 
 export const Transaction = types
@@ -67,14 +73,12 @@ export const Transaction = types
     }
   }))
   .views(self => ({
-    getTotals(startDate: Date, endDate: Date): any {
+    getTotals(startDate: Date, endDate: Date): ITotalData {
       const occurrences = self.getOccurrences(startDate, endDate);
 
       const during = Object.keys(occurrences)
         .filter(k => k !== 'before')
-        .reduce((sum, time) => {
-          return sum + occurrences[time];
-        }, 0);
+        .reduce((sum, time) => sum + occurrences[time], 0);
 
       return {
         before: occurrences.before,

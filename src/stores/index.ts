@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree';
 
 import { ComponentsStore } from './components';
 import { GraphStore } from './graph';
-import { TransactionsStore } from './transactionsStore';
+import { TransactionsStore } from './TransactionsStore';
 
 export const Store = types.model('Store', {
   transactionsStore: types.optional(TransactionsStore, {}),
@@ -16,4 +16,4 @@ export * from './components';
 export * from './types';
 export * from './graph';
 export * from './transaction';
-export * from './transactionsStore';
+export * from './TransactionsStore';

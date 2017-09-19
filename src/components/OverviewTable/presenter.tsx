@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { Table } from 'react-bootstrap';
 
+import { ITransactionTotal } from '../../stores';
 import { DateOnly } from '../../utilities/DateOnly';
 import Row from './Row';
 
-export default function OverviewTable({ transactionTotals }: any) {
-  const rows = transactionTotals.map((d: any, index: number) => (
+export type IProps = {
+  transactionTotals: ITransactionTotal[];
+};
+
+export default function OverviewTable({ transactionTotals }: IProps) {
+  const rows = transactionTotals.map((d, index) => (
     <Row
-      key={d.id}
+      key={d.id as string}
       {...d}
       isSubtotal={index === transactionTotals.length - 1}
     />

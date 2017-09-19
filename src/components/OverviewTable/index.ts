@@ -2,9 +2,9 @@ import { inject, observer } from 'mobx-react';
 import { compose } from 'recompose';
 
 import { IStore } from '../../stores';
-import Presenter from './presenter';
+import Presenter, { IProps } from './presenter';
 
-const container = compose(
+const container = compose<IProps, {}>(
   inject(({ store }: { store: IStore }) => ({
     transactionTotals: store.components.overviewTableStore.transactionTotals
   })),

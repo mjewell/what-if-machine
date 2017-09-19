@@ -18,14 +18,22 @@ function generateClassNames(amount: number, isSubtotal: boolean): string {
 
   return classNames.join(' ');
 }
+
+export type IProps = {
+  name: string;
+  before: number;
+  during: number;
+  total: number;
+  isSubtotal: boolean;
+};
+
 export default function Row({
-  id,
   name,
   before,
   during,
   total,
   isSubtotal
-}: any) {
+}: IProps) {
   return (
     <tr>
       <td className={generateClassNames(0, isSubtotal)}>{name}</td>
