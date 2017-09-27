@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormGroup } from 'react-bootstrap';
 
-import { IOnEndingData } from '../../types/Recurrence';
+import { IOnEndingData } from '../../stores';
 import DatePicker from '../DatePicker';
 
 type IProps = {

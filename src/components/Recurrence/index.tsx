@@ -5,7 +5,7 @@ import {
   IEveryRecurrenceData,
   IOnRecurrenceData,
   IRecurrence
-} from '../../types/Recurrence';
+} from '../../stores';
 import EveryBranch from './EveryBranch';
 import OnBranch from './OnBranch';
 import withBranchStates from './withBranchStates';

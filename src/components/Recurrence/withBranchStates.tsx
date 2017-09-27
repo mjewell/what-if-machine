@@ -1,8 +1,10 @@
 import * as React from 'react';
 
-export default <T extends {}>({ defaultStates }: { defaultStates: T }) => {
+type IMap = { [k: string]: any };
+
+export default <T extends IMap>({ defaultStates }: { defaultStates: T }) => {
   type IValue = {
-    type: keyof T;
+    type: string;
     data: any;
   };
 
