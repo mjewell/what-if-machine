@@ -20,7 +20,7 @@ export const Transaction = types
   .model('Transaction', {
     id: types.identifier(),
     name: types.optional(types.string, ''),
-    amountStr: types.optional(types.union(types.number, types.string), 0),
+    amountStr: types.optional(types.string, '0'),
     // TODO: set this to TRecurrence when mobx state tree cache issue is fixed
     recurrence: types.optional(types.frozen, () => ({
       type: 'on',
@@ -91,7 +91,7 @@ export const Transaction = types
     setName(name: string) {
       self.name = name;
     },
-    setAmount(amount: number | string) {
+    setAmount(amount: string) {
       self.amountStr = amount;
     },
     setRecurrence(recurrence: IRecurrence) {

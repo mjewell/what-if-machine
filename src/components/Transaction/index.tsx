@@ -1,58 +1,35 @@
-import { observer } from 'mobx-react';
-import * as React from 'react';
-import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { inject, observer } from 'mobx-react';
+import { compose, mapProps } from 'recompose';
 
-import { ITransaction } from '../../stores';
-import { IRecurrence } from '../../types/Recurrence';
-import Recurrence from '../Recurrence';
+import { IStore, ITransaction } from '../../stores';
+import Presenter, { IProps as IPresenterProps } from './presenter';
 
-type IProps = {
+export type IProps = {
   transaction: ITransaction;
 };
 
-export default observer(
-  class Transaction extends React.Component<IProps> {
-    setName = (e: any) => {
-      this.props.transaction.setName(e.target.value);
-    };
+const container = compose<IPresenterProps, IProps>(
+  observer,
+  mapProps<IPresenterProps, IProps>(({ transaction }) => {
+    const {
+      amountStr,
+      recurrence,
+      setAmount,
+      setName,
+      setRecurrence
+    } = transaction;
 
-    setAmount = (e: any) => {
-      this.props.transaction.setAmount(e.target.value);
+    return {
+      amountStr,
+      recurrence,
+      setAmount: (e: any) => setAmount(e.target.value),
+      setName: (e: any) => setName(e.target.value),
+      setRecurrence
     };
-
-    render() {
-      const {
-        name,
-        amountStr,
-        recurrence,
-        setRecurrence
-      } = this.props.transaction;
-      return (
-        <FormGroup>
-          <InputGroup className="mr-2">
-            <InputGroup.Addon>$</InputGroup.Addon>
-            <FormControl
-              style={{ width: 130 }}
-              type="number"
-              placeholder="amount"
-              value={amountStr}
-              onChange={this.setAmount}
-            />
-          </InputGroup>
-          for
-          <FormControl
-            type="text"
-            placeholder="name"
-            className="mx-2"
-            value={name}
-            onChange={this.setName}
-          />
-          <Recurrence
-            value={recurrence as IRecurrence}
-            onChange={setRecurrence}
-          />
-        </FormGroup>
-      );
-    }
-  }
+  }),
+  observer
 );
+
+export default container(Presenter);
+
+// inject gives interface to stores
