@@ -4,7 +4,7 @@ import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
 import { generate } from 'shortid';
 
-import { Transaction } from './transaction';
+import { Transaction } from './Transaction';
 
 export type ITimeSeriesData = {
   date: Date;

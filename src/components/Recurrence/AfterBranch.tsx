@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import { IAfterEndingData } from '../../types/recurrence';
+import { IAfterEndingData } from '../../types/Recurrence';
 
 type IProps = {
   value: IAfterEndingData;

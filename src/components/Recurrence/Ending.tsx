@@ -6,7 +6,7 @@ import {
   IEnding,
   IEndingData,
   IOnEndingData
-} from '../../types/recurrence';
+} from '../../types/Recurrence';
 import AfterBranch from './AfterBranch';
 import OnBranch from './OnBranch';
 import withBranchStates from './withBranchStates';

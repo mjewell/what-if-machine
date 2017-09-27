@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 
 import { ITransaction, ITransactionsStore } from '../../stores';
 import Transaction from '../Transaction';
-import Row from './row';
+import Row from './Row';
 
 export type IProps = {
   removeTransaction: (index: number) => () => void;
