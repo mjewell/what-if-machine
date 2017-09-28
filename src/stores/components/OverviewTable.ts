@@ -15,7 +15,7 @@ export const OverviewTableStore = types
   .views(self => ({
     get transactionTotals(): ITransactionTotal[] {
       const root = getRoot(self) as IStore;
-      const { startDate, endDate } = root.graphStore;
+      const { startDate, endDate } = root.filtersStore;
       const { transactions } = root.transactionsStore;
 
       const itemTotals = transactions.map(({ id, name, getTotals }) => ({

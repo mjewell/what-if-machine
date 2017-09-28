@@ -37,8 +37,8 @@ export default class Graph extends React.Component<Props, State> {
   svg: any;
 
   generateTimeSeries = () => {
-    const { transactionsStore, graphStore } = this.props.store;
-    const { startDate, endDate } = graphStore;
+    const { transactionsStore, filtersStore } = this.props.store;
+    const { startDate, endDate } = filtersStore;
     const { generateTimeSeries } = transactionsStore;
     return generateTimeSeries(
       new DateOnly(startDate).dateTime,
