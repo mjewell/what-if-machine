@@ -1,3 +1,4 @@
+import { partition } from 'lodash';
 import { types } from 'mobx-state-tree';
 
 import { toRRule } from '../utilities/toRRule';
@@ -52,22 +53,18 @@ export const Transaction = types
     getOccurrences(startDate: Date, endDate: Date): IOccurrenceData {
       const occurrencesArray = self.getOccurrencesArray(endDate);
 
-      return occurrencesArray.reduce(
-        (obj, occurrence) => {
-          if (occurrence < startDate) {
-            return {
-              ...obj,
-              before: obj.before + self.amount
-            };
-          }
+      const [occurrencesBefore, occurrencesAfter] = partition(
+        occurrencesArray,
+        occurrence => occurrence < startDate
+      );
 
-          return {
-            ...obj,
-            [occurrence.getTime()]: self.amount
-          };
-        },
+      return occurrencesAfter.reduce(
+        (obj, occurrence) => ({
+          ...obj,
+          [occurrence.getTime()]: self.amount
+        }),
         {
-          before: 0
+          before: occurrencesBefore.length * self.amount
         }
       );
     }

@@ -1,14 +1,8 @@
 import * as moment from 'moment';
 
-type DateOnlyConstructable =
-  | Date
-  | string
-  | number
-  | DateOnly
-  | moment.Moment
-  | undefined;
+type DateOnlyConstructable = Date | string | number | DateOnly | moment.Moment;
 
-function getMoment(date: DateOnlyConstructable) {
+function getMoment(date?: DateOnlyConstructable) {
   const dateData = date instanceof DateOnly ? date.dateTime : date;
   return moment(dateData);
 }
@@ -16,7 +10,7 @@ function getMoment(date: DateOnlyConstructable) {
 export class DateOnly {
   dateTime: Date;
 
-  constructor(date: DateOnlyConstructable) {
+  constructor(date?: DateOnlyConstructable) {
     this.dateTime = getMoment(date)
       .startOf('day')
       .toDate();
