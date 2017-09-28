@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-import { ITransaction } from '../../stores';
+import { ITransaction } from '../../models';
 import Transaction from '../Transaction';
 
 type IProps = {

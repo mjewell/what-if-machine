@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-import { ITransaction, ITransactionsStore } from '../../stores';
+import { ITransaction } from '../../models';
+import { ITransactionsStore } from '../../stores';
 import Transaction from '../Transaction';
 import Row from './Row';
 

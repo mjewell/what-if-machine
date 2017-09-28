@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import { IEnding, IEveryRecurrenceData, IOnEndingData } from '../../stores';
+import { IEnding, IEveryRecurrenceData, IOnEndingData } from '../../models';
 import Ending from './Ending';
 import OnBranch from './OnBranch';
 

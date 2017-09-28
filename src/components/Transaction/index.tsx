@@ -1,7 +1,8 @@
 import { inject, observer } from 'mobx-react';
 import { compose, mapProps } from 'recompose';
 
-import { IStore, ITransaction } from '../../stores';
+import { ITransaction } from '../../models';
+import { IStore } from '../../stores';
 import Presenter, { IProps as IPresenterProps } from './presenter';
 
 export type IProps = {

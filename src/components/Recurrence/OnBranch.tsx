@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormGroup } from 'react-bootstrap';
 
-import { IOnEndingData } from '../../stores';
+import { IOnEndingData } from '../../models';
 import DatePicker from '../DatePicker';
 
 type IProps = {
