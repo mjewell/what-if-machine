@@ -1,5 +1,6 @@
 import 'twix';
 
+import { sumBy } from 'lodash';
 import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
 import { generate } from 'shortid';
@@ -23,21 +24,17 @@ export const TransactionsStore = types
     }
 
     return {
-      generateTimeSeries(startDate: Date, endDate: Date): ITimeSeriesData[] {
+      generateDailyAmounts(startDate: Date, endDate: Date): ITimeSeriesData[] {
         const occurrences = getOccurrences(startDate, endDate);
 
         const range = moment(startDate).twix(endDate, { allDay: true });
         const days = (range as any).toArray('days') as moment.Moment[];
 
-        let sum = occurrences.reduce((beforeSum, occurrence) => {
-          return beforeSum + occurrence.before;
-        }, 0);
+        let sum = sumBy(occurrences, occurrence => occurrence.before);
 
         return days.map(day => day.toDate()).map(day => {
           const time = day.getTime();
-          sum += occurrences.reduce((daySum, occurrence) => {
-            return daySum + (occurrence[time] || 0);
-          }, 0);
+          sum += sumBy(occurrences, occurrence => occurrence[time] || 0);
 
           return {
             date: day,

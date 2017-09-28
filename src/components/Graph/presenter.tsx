@@ -39,8 +39,8 @@ export default class Graph extends React.Component<Props, State> {
   generateTimeSeries = () => {
     const { transactionsStore, filtersStore } = this.props.store;
     const { startDate, endDate } = filtersStore;
-    const { generateTimeSeries } = transactionsStore;
-    return generateTimeSeries(
+    const { generateDailyAmounts } = transactionsStore;
+    return generateDailyAmounts(
       new DateOnly(startDate).dateTime,
       new DateOnly(endDate).dateTime
     );

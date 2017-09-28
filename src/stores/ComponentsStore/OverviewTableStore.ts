@@ -1,3 +1,4 @@
+import { sumBy } from 'lodash';
 import { getRoot, types } from 'mobx-state-tree';
 
 import { IStore } from '../../stores';
@@ -24,23 +25,12 @@ export const OverviewTableStore = types
         ...getTotals(startDate, endDate)
       }));
 
-      const subtotals = itemTotals.reduce(
-        (totals, { before, during, total }: ITransactionTotal) => ({
-          before: totals.before + before,
-          during: totals.during + during,
-          total: totals.total + total
-        }),
-        {
-          before: 0,
-          during: 0,
-          total: 0
-        }
-      );
-
       return itemTotals.concat({
         id: 'totals',
         name: 'Total',
-        ...subtotals
+        before: sumBy(itemTotals, itemTotal => itemTotal.before),
+        during: sumBy(itemTotals, itemTotal => itemTotal.during),
+        total: sumBy(itemTotals, itemTotal => itemTotal.total)
       });
     }
   }));
