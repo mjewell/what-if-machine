@@ -20,7 +20,11 @@ export default function Transactions({
   return (
     <div>
       {transactions.map((t, index) => (
-        <Row transaction={t} removeTransaction={removeTransaction(index)} />
+        <Row
+          key={t.id as string}
+          transaction={t}
+          removeTransaction={removeTransaction(index)}
+        />
       ))}
       <Button bsStyle="success" onClick={addTransaction}>
         Add Transaction

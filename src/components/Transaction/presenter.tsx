@@ -7,6 +7,7 @@ import Recurrence from '../Recurrence';
 
 export type IProps = {
   amountStr: string;
+  name: string;
   recurrence: IRecurrence;
   setAmount: (e: any) => void;
   setName: (e: any) => void;
@@ -15,6 +16,7 @@ export type IProps = {
 
 export default function Transaction({
   amountStr,
+  name,
   recurrence,
   setAmount,
   setName,

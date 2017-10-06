@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Table } from 'react-bootstrap';
 
-import { ITransactionTotal } from '../../stores';
 import { DateOnly } from '../../utilities/DateOnly';
 import Row from './Row';
+import { ITransactionTotal } from './store';
 
 export type IProps = {
   transactionTotals: ITransactionTotal[];

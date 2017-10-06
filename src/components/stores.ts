@@ -1,11 +1,11 @@
 import { types } from 'mobx-state-tree';
 
-import { OverviewTableStore } from './OverviewTableStore';
+import { OverviewTableStore } from './OverviewTable/store';
 
 export const ComponentsStore = types.model('ComponentsStore', {
-  overviewTableStore: types.optional(OverviewTableStore, {})
+  overviewTable: types.optional(OverviewTableStore, {})
 });
 
 export type IComponentsStore = typeof ComponentsStore.Type;
 
-export * from './OverviewTableStore';
+export * from './OverviewTable/store';

@@ -6,7 +6,7 @@ import Presenter, { IProps } from './presenter';
 
 const container = compose<IProps, {}>(
   inject(({ store }: { store: IStore }) => ({
-    transactionTotals: store.components.overviewTableStore.transactionTotals
+    transactionTotals: store.components.overviewTable.transactionTotals
   })),
   observer
 );

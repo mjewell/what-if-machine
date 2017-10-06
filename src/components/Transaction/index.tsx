@@ -14,6 +14,7 @@ const container = compose<IPresenterProps, IProps>(
   mapProps<IPresenterProps, IProps>(({ transaction }) => {
     const {
       amountStr,
+      name,
       recurrence,
       setAmount,
       setName,
@@ -22,6 +23,7 @@ const container = compose<IPresenterProps, IProps>(
 
     return {
       amountStr,
+      name,
       recurrence,
       setAmount: (e: any) => setAmount(e.target.value),
       setName: (e: any) => setName(e.target.value),
