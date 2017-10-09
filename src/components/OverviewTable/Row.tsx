@@ -2,22 +2,7 @@ import * as React from 'react';
 import { Table } from 'react-bootstrap';
 
 import { DateOnly } from '../../utilities/DateOnly';
-
-function generateClassNames(amount: number, isSubtotal: boolean): string {
-  let classNames = ['align-middle'];
-
-  if (isSubtotal) {
-    classNames.push('font-weight-bold');
-  }
-
-  if (amount > 0) {
-    classNames.push('text-success');
-  } else if (amount < 0) {
-    classNames.push('text-danger');
-  }
-
-  return classNames.join(' ');
-}
+import Cell from './Cell';
 
 export type IProps = {
   name: string;
@@ -36,10 +21,10 @@ export default function Row({
 }: IProps) {
   return (
     <tr>
-      <td className={generateClassNames(0, isSubtotal)}>{name}</td>
-      <td className={generateClassNames(before, isSubtotal)}>{before}</td>
-      <td className={generateClassNames(during, isSubtotal)}>{during}</td>
-      <td className={generateClassNames(total, isSubtotal)}>{total}</td>
+      <Cell val={0} name={name} isSubtotal={isSubtotal} />
+      <Cell val={before} isSubtotal={isSubtotal} />
+      <Cell val={during} isSubtotal={isSubtotal} />
+      <Cell val={total} isSubtotal={isSubtotal} />
     </tr>
   );
 }

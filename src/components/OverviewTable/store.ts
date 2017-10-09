@@ -25,12 +25,22 @@ export const OverviewTableStore = types
         ...getTotals(startDate, endDate)
       }));
 
-      return itemTotals.concat({
-        id: 'totals',
-        name: 'Total',
-        before: sumBy(itemTotals, itemTotal => itemTotal.before),
-        during: sumBy(itemTotals, itemTotal => itemTotal.during),
-        total: sumBy(itemTotals, itemTotal => itemTotal.total)
-      });
+      return [
+        ...itemTotals,
+        {
+          id: 'totals',
+          name: 'Total',
+          before: sumBy(itemTotals, itemTotal => itemTotal.before),
+          during: sumBy(itemTotals, itemTotal => itemTotal.during),
+          total: sumBy(itemTotals, itemTotal => itemTotal.total)
+        }
+      ];
+    }
+  }))
+  .views(self => ({
+    get asProps() {
+      return {
+        transactionTotals: self.transactionTotals
+      };
     }
   }));
