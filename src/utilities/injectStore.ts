@@ -9,16 +9,12 @@ export type ComponentsStore = {
   [key: string]: ComponentStore;
 };
 
-export type Store = {
-  components: ComponentsStore;
-};
-
 export default (storeName: string) =>
-  inject(({ store }: { store: Store }, props) => {
-    const componentStore = store.components[storeName];
+  inject(({ componentsStore }: { componentsStore: ComponentsStore }, props) => {
+    const store = componentsStore[storeName];
 
     return {
-      ...componentStore.asProps,
-      ...(componentStore.fromProps && componentStore.fromProps(props))
+      ...store.asProps,
+      ...(store.fromProps && store.fromProps(props))
     };
   });

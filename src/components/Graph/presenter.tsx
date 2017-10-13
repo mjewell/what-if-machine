@@ -13,7 +13,10 @@ import { IStore, ITimeSeriesData } from '../../stores';
 import { DateOnly } from '../../utilities/DateOnly';
 
 type Props = {
-  store: IStore;
+  timeSeries: {
+    date: Date;
+    amount: number;
+  }[];
 };
 
 type State = {
@@ -36,16 +39,6 @@ export default class Graph extends React.Component<Props, State> {
   state: State = { tooltipData: null, tooltipLeft: 0, tooltipTop: 0 };
   svg: any;
 
-  generateTimeSeries = () => {
-    const { transactionsStore, filtersStore } = this.props.store;
-    const { startDate, endDate } = filtersStore;
-    const { generateDailyAmounts } = transactionsStore;
-    return generateDailyAmounts(
-      new DateOnly(startDate).dateTime,
-      new DateOnly(endDate).dateTime
-    );
-  };
-
   hideTooltip = () => {
     this.setState({
       tooltipData: null
@@ -65,7 +58,7 @@ export default class Graph extends React.Component<Props, State> {
   };
 
   render() {
-    const data = this.generateTimeSeries();
+    const data = this.props.timeSeries;
     const width = 1000;
     const height = 500;
     const margin = {
