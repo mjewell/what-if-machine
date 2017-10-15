@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import { Button, Form } from 'react-bootstrap';
 
 import { ITransaction } from '../../../models';
@@ -13,15 +14,19 @@ export type IProps = {
 
 export default function Rows({ transactions, removeTransaction }: IProps) {
   return (
-    <div>
-      {transactions.map((t, index) => (
-        <Row
-          key={t.id as string}
-          index={index}
-          transaction={t}
-          removeTransaction={removeTransaction(index)}
-        />
-      ))}
-    </div>
+    <Droppable droppableId="droppable">
+      {(provided, snapshot) => (
+        <div ref={provided.innerRef}>
+          {transactions.map((t, index) => (
+            <Row
+              key={t.id as string}
+              transaction={t}
+              removeTransaction={removeTransaction(index)}
+            />
+          ))}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 }

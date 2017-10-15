@@ -3,6 +3,7 @@ import './index.css';
 import { Provider } from 'mobx-react';
 import { applySnapshot, onSnapshot } from 'mobx-state-tree';
 import * as React from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
 import App from './components/App';
@@ -24,7 +25,9 @@ onSnapshot(store, snapshot => {
 
 ReactDOM.render(
   <Provider componentsStore={componentsStore}>
-    <App />
+    <DragDropContext onDragEnd={componentsStore.onDragEnd}>
+      <App />
+    </DragDropContext>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );

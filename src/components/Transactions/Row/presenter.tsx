@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import { Button, Form } from 'react-bootstrap';
 
 import { ITransaction } from '../../../models';
@@ -15,12 +16,29 @@ export default function TransactionRow({
   transaction
 }: IProps) {
   return (
-    <Form inline key={transaction.id as string}>
-      <Handle />
-      <Transaction transaction={transaction} />
-      <Button bsStyle="danger" className="ml-3" onClick={removeTransaction}>
-        Delete
-      </Button>
-    </Form>
+    <Draggable draggableId={`transaction-${transaction.id}`}>
+      {(provided, snapshot) => (
+        <div>
+          <div
+            ref={provided.innerRef}
+            style={provided.draggableStyle}
+            {...provided.dragHandleProps}
+          >
+            <Form inline>
+              <Handle />
+              <Transaction transaction={transaction} />
+              <Button
+                bsStyle="danger"
+                className="ml-3"
+                onClick={removeTransaction}
+              >
+                Delete
+              </Button>
+            </Form>
+          </div>
+          {provided.placeholder}
+        </div>
+      )}
+    </Draggable>
   );
 }

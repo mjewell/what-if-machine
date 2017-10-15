@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { arrayMove } from 'react-sortable-hoc';
 
 import { ITransaction } from '../../models';
 import { ITransactionsStore } from '../../stores';
@@ -12,31 +11,16 @@ export type IProps = {
   removeTransaction: (index: number) => () => void;
   addTransaction: () => void;
   transactions: ITransaction[];
-  onSortEnd: (
-    {
-      oldIndex,
-      newIndex
-    }: {
-      oldIndex: number;
-      newIndex: number;
-    }
-  ) => void;
 };
 
 export default function Transactions({
   transactions,
   addTransaction,
-  removeTransaction,
-  onSortEnd
+  removeTransaction
 }: IProps) {
   return (
     <div className="mb-3">
-      <Rows
-        transactions={transactions}
-        removeTransaction={removeTransaction}
-        useDragHandle
-        onSortEnd={onSortEnd}
-      />
+      <Rows transactions={transactions} removeTransaction={removeTransaction} />
       <Button bsStyle="success" onClick={addTransaction}>
         Add Transaction
       </Button>

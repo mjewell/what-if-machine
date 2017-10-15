@@ -1,7 +1,7 @@
 import 'twix';
 
 import { sumBy } from 'lodash';
-import { types } from 'mobx-state-tree';
+import { getSnapshot, types } from 'mobx-state-tree';
 import * as moment from 'moment';
 import { generate } from 'shortid';
 
@@ -50,11 +50,13 @@ export const TransactionsStore = types
     },
 
     removeTransaction(index: number) {
-      self.transactions.splice(index, 1);
-    },
-
-    updateTransactions(transactions: ITransaction[]) {
-      self.transactions.replace(transactions);
+      return self.transactions.splice(index, 1)[0];
+    }
+  }))
+  .actions(self => ({
+    reorderTransactions(oldIndex: number, newIndex: number) {
+      const transactionToMove = self.removeTransaction(oldIndex);
+      self.transactions.splice(newIndex, 0, getSnapshot(transactionToMove));
     }
   }));
 
