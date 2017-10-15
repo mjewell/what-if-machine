@@ -5,6 +5,6 @@ import { compose } from 'recompose';
 import injectStore from '../../utilities/injectStore';
 import Presenter from './presenter';
 
-const container = compose(injectStore('graph'), withTooltip, observer);
+const container = compose(injectStore('graph'), observer);
 
 export default container(Presenter);

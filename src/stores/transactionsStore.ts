@@ -5,7 +5,7 @@ import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
 import { generate } from 'shortid';
 
-import { Transaction } from '../models';
+import { ITransaction, Transaction } from '../models';
 
 export type ITimeSeriesData = {
   date: Date;
@@ -51,6 +51,10 @@ export const TransactionsStore = types
 
     removeTransaction(index: number) {
       self.transactions.splice(index, 1);
+    },
+
+    updateTransactions(transactions: ITransaction[]) {
+      self.transactions.replace(transactions);
     }
   }));
 
