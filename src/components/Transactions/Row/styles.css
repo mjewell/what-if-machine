@@ -1,0 +1,6 @@
+.drag-handle {
+  background-color: #eee;
+  cursor: move;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+}

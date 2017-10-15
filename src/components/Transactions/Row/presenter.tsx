@@ -15,7 +15,7 @@ export default function TransactionRow({
   transaction
 }: IProps) {
   return (
-    <Form inline className="p-3" key={transaction.id as string}>
+    <Form inline key={transaction.id as string}>
       <Handle />
       <Transaction transaction={transaction} />
       <Button bsStyle="danger" className="ml-3" onClick={removeTransaction}>

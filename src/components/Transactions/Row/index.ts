@@ -1,3 +1,5 @@
+import './styles.css';
+
 import { inject, observer } from 'mobx-react';
 import { SortableElement, SortableElementProps } from 'react-sortable-hoc';
 import { compose } from 'recompose';

@@ -30,7 +30,7 @@ export default function Transactions({
   onSortEnd
 }: IProps) {
   return (
-    <div>
+    <div className="mb-3">
       <Rows
         transactions={transactions}
         removeTransaction={removeTransaction}
