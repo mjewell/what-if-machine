@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Button, Form } from 'react-bootstrap';
 
 import { ITransaction } from '../../../models';
-import Transaction from '../../Transaction';
+import Transaction from '../Transaction';
 import Handle from './Handle';
 
 export type IProps = {
