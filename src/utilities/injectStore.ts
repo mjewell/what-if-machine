@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import { inject } from 'mobx-react';
 
 export type ComponentStore = {
@@ -11,7 +12,7 @@ export type ComponentsStore = {
 
 export default (storeName: string) =>
   inject(({ componentsStore }: { componentsStore: ComponentsStore }, props) => {
-    const store = componentsStore[storeName];
+    const store = get(componentsStore, storeName) as ComponentStore;
 
     return {
       ...store.asProps,

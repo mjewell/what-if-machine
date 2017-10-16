@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 
-import { ITransaction } from '../../models';
+import { ITransaction } from '../../../models';
 
 export type IProps = {
   transaction: ITransaction;

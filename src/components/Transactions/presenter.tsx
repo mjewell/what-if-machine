@@ -3,31 +3,19 @@ import { Droppable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 
 import { ITransaction } from '../../models';
-import Row from './Row';
+import Rows from './Rows';
 
 export type IProps = {
-  removeTransaction: (index: number) => () => void;
   addTransaction: () => void;
-  transactions: ITransaction[];
 };
 
-export default function Transactions({
-  transactions,
-  addTransaction,
-  removeTransaction
-}: IProps) {
+export default function Transactions({ addTransaction }: IProps) {
   return (
     <div className="mb-3">
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <div ref={provided.innerRef}>
-            {transactions.map((t, index) => (
-              <Row
-                key={t.id as string}
-                transaction={t}
-                removeTransaction={removeTransaction(index)}
-              />
-            ))}
+            <Rows />
             {provided.placeholder}
           </div>
         )}

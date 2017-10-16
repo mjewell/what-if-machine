@@ -10,7 +10,7 @@ export type IProps = {
 };
 
 const container = compose<IPresenterProps, IProps>(
-  injectStore('transaction'),
+  injectStore('transactions.transaction'),
   observer
 );
 
