@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Table } from 'react-bootstrap';
 
-import { DateOnly } from '../../utilities/DateOnly';
 import Cell from './Cell';
 
 export type IProps = {

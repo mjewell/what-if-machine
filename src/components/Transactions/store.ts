@@ -1,4 +1,3 @@
-import { sumBy } from 'lodash';
 import { getEnv, types } from 'mobx-state-tree';
 
 import { IStore } from '../../stores';

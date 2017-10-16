@@ -1,6 +1,6 @@
 import './styles.css';
 
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { compose } from 'recompose';
 
 import Presenter, { IProps } from './presenter';

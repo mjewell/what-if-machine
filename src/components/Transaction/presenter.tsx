@@ -1,8 +1,7 @@
-import { observer } from 'mobx-react';
 import * as React from 'react';
 import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
-import { IRecurrence, ITransaction } from '../../models';
+import { IRecurrence } from '../../models';
 import Recurrence from '../Recurrence';
 
 export type IProps = {

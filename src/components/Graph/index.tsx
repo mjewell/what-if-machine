@@ -1,5 +1,4 @@
-import { withTooltip } from '@vx/tooltip';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { compose } from 'recompose';
 
 import injectStore from '../../utilities/injectStore';

@@ -1,7 +1,4 @@
 import * as React from 'react';
-import { Table } from 'react-bootstrap';
-
-import { DateOnly } from '../../utilities/DateOnly';
 
 function generateClassNames(amount: number, isSubtotal: boolean): string {
   let classNames = ['align-middle'];

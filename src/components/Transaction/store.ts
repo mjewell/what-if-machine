@@ -1,8 +1,6 @@
-import { sumBy } from 'lodash';
-import { getRoot, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 
 import { ITransaction } from '../../models';
-import { IStore } from '../../stores';
 
 export type IProps = {
   transaction: ITransaction;
