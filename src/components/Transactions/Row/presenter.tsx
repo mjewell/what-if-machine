@@ -19,13 +19,9 @@ export default function TransactionRow({
     <Draggable draggableId={`transaction-${transaction.id}`}>
       {(provided, snapshot) => (
         <div>
-          <div
-            ref={provided.innerRef}
-            style={provided.draggableStyle}
-            {...provided.dragHandleProps}
-          >
+          <div ref={provided.innerRef} style={provided.draggableStyle}>
             <Form inline>
-              <Handle />
+              <Handle {...provided.dragHandleProps} />
               <Transaction transaction={transaction} />
               <Button
                 bsStyle="danger"

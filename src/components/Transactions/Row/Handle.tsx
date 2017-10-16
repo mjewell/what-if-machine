@@ -1,5 +1,9 @@
 import * as React from 'react';
 
-export default function Handle() {
-  return <span className="drag-handle">:::</span>;
+export default function Handle(props: {}) {
+  return (
+    <span className="drag-handle" {...props}>
+      :::
+    </span>
+  );
 }
