@@ -1,5 +1,5 @@
 import { partition } from 'lodash';
-import { types } from 'mobx-state-tree';
+import { getParent, types } from 'mobx-state-tree';
 import { generate } from 'shortid';
 
 import { toRRule } from '../utilities/toRRule';
@@ -29,7 +29,8 @@ export const Transaction = types
       type: 'on',
       data: new Date()
     })),
-    category: types.reference(Category)
+    category: types.reference(Category),
+    position: types.refinement(types.number, n => n >= 0)
   })
   .views(self => ({
     get amount() {
@@ -97,8 +98,39 @@ export const Transaction = types
     setRecurrence(recurrence: IRecurrence) {
       self.recurrence = recurrence;
     },
-    setCategory(category: ICategory) {
+    setPosition(position: number) {
+      self.position = position;
+    },
+    setCategoryAndPosition(category: ICategory, position: number) {
+      if (category === self.category) {
+        if (self.position < position) {
+          category.transactions
+            .slice(self.position + 1, position + 1)
+            .forEach(t => {
+              t.setPosition(t.position - 1);
+            });
+        } else {
+          category.transactions.slice(position, self.position).forEach(t => {
+            t.setPosition(t.position + 1);
+          });
+        }
+      } else {
+        category.transactions.slice(position).forEach(t => {
+          t.setPosition(t.position + 1);
+        });
+
+        self.category.transactions.slice(self.position + 1).forEach(t => {
+          t.setPosition(t.position - 1);
+        });
+      }
+
       self.category = category;
+      self.position = position;
+    }
+  }))
+  .actions(self => ({
+    beforeDestroy() {
+      self.setCategoryAndPosition(self.category, Number.MAX_SAFE_INTEGER);
     }
   }));
 

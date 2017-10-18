@@ -14,12 +14,22 @@ export const Category = types
 
       return root.transactionsStore.transactions
         .values()
-        .filter(transaction => transaction.category === self);
+        .filter(transaction => transaction.category === self)
+        .sort((a, b) => a.position - b.position);
     }
   }))
   .actions(self => ({
     setName(name: string) {
       self.name = name;
+    },
+
+    addTransaction() {
+      const root = getRoot(self) as IStore;
+
+      root.transactionsStore.addTransaction(
+        self as ICategory,
+        self.transactions.length
+      );
     },
 
     removeTransaction(index: number) {

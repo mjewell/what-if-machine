@@ -40,8 +40,9 @@ export const ComponentsStore = types
         extractCategoryId(destination.droppableId)
       )!;
 
-      sourceCategory.transactions[source.index].setCategory(
-        destinationCategory
+      sourceCategory.transactions[source.index].setCategoryAndPosition(
+        destinationCategory,
+        destination.index
       );
     }
   }));

@@ -44,18 +44,12 @@ export const TransactionsStore = types
     };
   })
   .actions(self => ({
-    addTransaction(category: ICategory) {
-      self.transactions.put(Transaction.create({ category }));
+    addTransaction(category: ICategory, position: number) {
+      self.transactions.put(Transaction.create({ category, position }));
     },
 
     removeTransaction(transaction: ITransaction) {
       self.transactions.delete(transaction.id as string);
-    }
-  }))
-  .actions(self => ({
-    reorderTransactions(oldIndex: number, newIndex: number) {
-      // const transactionToMove = self.removeTransaction(oldIndex);
-      // self.transactions.splice(newIndex, 0, getSnapshot(transactionToMove));
     }
   }));
 

@@ -12,11 +12,8 @@ export const TransactionsStore = types
   })
   .views(self => ({
     fromProps({ category }: IProps): any {
-      const store = getEnv(self).store as IStore;
-      const { addTransaction } = store.transactionsStore;
-
       return {
-        addTransaction: () => addTransaction(category),
+        addTransaction: category.addTransaction,
         transactions: category.transactions
       };
     }
