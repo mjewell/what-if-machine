@@ -28,7 +28,8 @@ export const Transaction = types
     recurrence: types.optional(types.frozen, () => ({
       type: 'on',
       data: new Date()
-    }))
+    })),
+    category: types.reference(Category)
   })
   .views(self => ({
     get amount() {

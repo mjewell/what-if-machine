@@ -2,19 +2,21 @@ import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 
+import { ITransaction } from '../../models';
 import Rows from './Rows';
 
 export type IProps = {
+  transactions: ITransaction[];
   addTransaction: () => void;
 };
 
-export default function Transactions({ addTransaction }: IProps) {
+export default function Transactions({ transactions, addTransaction }: IProps) {
   return (
     <div className="mb-3">
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <div ref={provided.innerRef}>
-            <Rows />
+            <Rows transactions={transactions} />
             {provided.placeholder}
           </div>
         )}

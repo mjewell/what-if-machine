@@ -1,6 +1,7 @@
 import { getEnv, types } from 'mobx-state-tree';
 
 import { IStore } from '../../stores';
+import { IProps } from '.';
 import { RowsStore } from './Rows/store';
 import { TransactionStore } from './Transaction/store';
 
@@ -10,12 +11,13 @@ export const TransactionsStore = types
     rows: types.optional(RowsStore, {})
   })
   .views(self => ({
-    get asProps() {
+    fromProps({ category }: IProps): any {
       const store = getEnv(self).store as IStore;
       const { addTransaction } = store.transactionsStore;
 
       return {
-        addTransaction
+        addTransaction: () => addTransaction(category),
+        transactions: category.transactions
       };
     }
   }));

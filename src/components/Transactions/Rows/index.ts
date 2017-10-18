@@ -1,10 +1,15 @@
 import { observer } from 'mobx-react';
 import { compose } from 'recompose';
 
+import { ITransaction } from '../../../models';
 import injectStore from '../../../utilities/injectStore';
-import Presenter, { IProps } from './presenter';
+import Presenter, { IProps as IPresenterProps } from './presenter';
 
-const container = compose<IProps, {}>(
+export type IProps = {
+  transactions: ITransaction[];
+};
+
+const container = compose<IPresenterProps, IProps>(
   injectStore('transactions.rows'),
   observer
 );

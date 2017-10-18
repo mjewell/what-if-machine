@@ -2,6 +2,7 @@ import './styles.css';
 
 import * as React from 'react';
 
+import Categories from '../Categories';
 import Graph from '../Graph';
 import OverviewTable from '../OverviewTable';
 import Transactions from '../Transactions';
@@ -16,7 +17,7 @@ class App extends React.Component<{}, {}> {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>What-If Machine</h2>
         </div>
-        <Transactions />
+        <Categories />
         <Graph />
         <OverviewTable />
       </div>

@@ -4,7 +4,7 @@ import { sumBy } from 'lodash';
 import { getSnapshot, types } from 'mobx-state-tree';
 import * as moment from 'moment';
 
-import { Transaction } from '../models';
+import { ICategory, Transaction } from '../models';
 
 export type ITimeSeriesData = {
   date: Date;
@@ -44,8 +44,8 @@ export const TransactionsStore = types
     };
   })
   .actions(self => ({
-    addTransaction() {
-      self.transactions.push(Transaction.create());
+    addTransaction(category: ICategory) {
+      self.transactions.push(Transaction.create({ category }));
     },
 
     removeTransaction(index: number) {

@@ -8,10 +8,7 @@ export type IProps = {
   removeTransaction: (index: number) => () => void;
 };
 
-export default function Transactions({
-  transactions,
-  removeTransaction
-}: IProps) {
+export default function Rows({ transactions, removeTransaction }: IProps) {
   return (
     <div>
       {transactions.map((t, index) => (
