@@ -3,7 +3,6 @@ import 'twix';
 import { sumBy } from 'lodash';
 import { getSnapshot, types } from 'mobx-state-tree';
 import * as moment from 'moment';
-import { generate } from 'shortid';
 
 import { Transaction } from '../models';
 
@@ -46,7 +45,7 @@ export const TransactionsStore = types
   })
   .actions(self => ({
     addTransaction() {
-      self.transactions.push(Transaction.create({ id: generate() }));
+      self.transactions.push(Transaction.create());
     },
 
     removeTransaction(index: number) {

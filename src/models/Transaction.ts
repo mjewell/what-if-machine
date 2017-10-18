@@ -1,7 +1,9 @@
 import { partition } from 'lodash';
 import { types } from 'mobx-state-tree';
+import { generate } from 'shortid';
 
 import { toRRule } from '../utilities/toRRule';
+import { Category } from './Category';
 import { IRecurrence } from './Recurrence';
 
 type IOccurrenceData = {
@@ -19,7 +21,7 @@ const minDate = new Date('2000/01/01');
 
 export const Transaction = types
   .model('Transaction', {
-    id: types.identifier(),
+    id: types.optional(types.identifier(), generate),
     name: types.optional(types.string, ''),
     amountStr: types.optional(types.string, '0'),
     // TODO: set this to TRecurrence when mobx state tree cache issue is fixed
