@@ -5,7 +5,8 @@ import { IStore } from '../stores';
 
 export const Category = types
   .model('Category', {
-    id: types.optional(types.identifier(), generate)
+    id: types.optional(types.identifier(), generate),
+    name: types.optional(types.string, '')
   })
   .views(self => ({
     get transactions() {
@@ -14,6 +15,11 @@ export const Category = types
       return root.transactionsStore.transactions.filter(
         transaction => transaction.category === self
       );
+    }
+  }))
+  .actions(self => ({
+    setName(name: string) {
+      self.name = name;
     }
   }));
 
