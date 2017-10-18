@@ -12,14 +12,20 @@ export const Category = types
     get transactions() {
       const root = getRoot(self) as IStore;
 
-      return root.transactionsStore.transactions.filter(
-        transaction => transaction.category === self
-      );
+      return root.transactionsStore.transactions
+        .values()
+        .filter(transaction => transaction.category === self);
     }
   }))
   .actions(self => ({
     setName(name: string) {
       self.name = name;
+    },
+
+    removeTransaction(index: number) {
+      const root = getRoot(self) as IStore;
+
+      root.transactionsStore.removeTransaction(self.transactions[index]);
     }
   }));
 

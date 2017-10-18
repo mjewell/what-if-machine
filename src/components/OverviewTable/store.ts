@@ -19,11 +19,13 @@ export const OverviewTableStore = types
       const { startDate, endDate } = store.filtersStore;
       const { transactions } = store.transactionsStore;
 
-      const itemTotals = transactions.map(({ id, name, getTotals }) => ({
-        id,
-        name,
-        ...getTotals(startDate, endDate)
-      }));
+      const itemTotals = transactions
+        .values()
+        .map(({ id, name, getTotals }) => ({
+          id,
+          name,
+          ...getTotals(startDate, endDate)
+        }));
 
       return [
         ...itemTotals,

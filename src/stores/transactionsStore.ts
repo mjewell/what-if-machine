@@ -4,7 +4,7 @@ import { sumBy } from 'lodash';
 import { getSnapshot, types } from 'mobx-state-tree';
 import * as moment from 'moment';
 
-import { ICategory, Transaction } from '../models';
+import { ICategory, ITransaction, Transaction } from '../models';
 
 export type ITimeSeriesData = {
   date: Date;
@@ -13,13 +13,13 @@ export type ITimeSeriesData = {
 
 export const TransactionsStore = types
   .model('TransactionsStore', {
-    transactions: types.optional(types.array(Transaction), [])
+    transactions: types.optional(types.map(Transaction), {})
   })
   .views(self => {
     function getOccurrences(startDate: Date, endDate: Date) {
-      return self.transactions.map(transaction =>
-        transaction.getOccurrences(startDate, endDate)
-      );
+      return self.transactions
+        .values()
+        .map(transaction => transaction.getOccurrences(startDate, endDate));
     }
 
     return {
@@ -45,17 +45,17 @@ export const TransactionsStore = types
   })
   .actions(self => ({
     addTransaction(category: ICategory) {
-      self.transactions.push(Transaction.create({ category }));
+      self.transactions.put(Transaction.create({ category }));
     },
 
-    removeTransaction(index: number) {
-      return self.transactions.splice(index, 1)[0];
+    removeTransaction(transaction: ITransaction) {
+      self.transactions.delete(transaction.id as string);
     }
   }))
   .actions(self => ({
     reorderTransactions(oldIndex: number, newIndex: number) {
-      const transactionToMove = self.removeTransaction(oldIndex);
-      self.transactions.splice(newIndex, 0, getSnapshot(transactionToMove));
+      // const transactionToMove = self.removeTransaction(oldIndex);
+      // self.transactions.splice(newIndex, 0, getSnapshot(transactionToMove));
     }
   }));
 

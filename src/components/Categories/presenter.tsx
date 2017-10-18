@@ -14,7 +14,7 @@ export default function Categories({ categories, addCategory }: IProps) {
   return (
     <div className="mb-3">
       {categories.map(category => (
-        <div>
+        <div key={category.id as string}>
           <FormGroup>
             <FormControl
               type="text"
@@ -23,7 +23,7 @@ export default function Categories({ categories, addCategory }: IProps) {
               onChange={(e: any) => category.setName(e.target.value)}
             />
           </FormGroup>
-          <Transactions key={category.id as string} category={category} />
+          <Transactions category={category} />
         </div>
       ))}
       <Button bsStyle="success" onClick={addCategory}>
