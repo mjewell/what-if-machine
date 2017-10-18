@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 
-import { ITransaction } from '../../models';
 import Rows from './Rows';
 
 export type IProps = {
