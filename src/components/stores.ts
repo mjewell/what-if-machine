@@ -7,6 +7,16 @@ import { GraphStore } from './Graph/store';
 import { OverviewTableStore } from './OverviewTable/store';
 import { TransactionsStore } from './Transactions/store';
 
+function extractCategoryId(dropzoneId: string) {
+  if (!dropzoneId.startsWith('transactions-dropzone-')) {
+    throw new Error(
+      `Expected a transactions dropzone id but got ${dropzoneId}`
+    );
+  }
+
+  return dropzoneId.slice('transactions-dropzone-'.length);
+}
+
 export const ComponentsStore = types
   .model('ComponentsStore', {
     categories: types.optional(CategoriesStore, {}),
@@ -21,9 +31,18 @@ export const ComponentsStore = types
       }
 
       const store = getEnv(self).store as IStore;
-      const { reorderTransactions } = store.transactionsStore;
+      const { categories } = store.categoriesStore;
 
-      reorderTransactions(source.index, destination.index);
+      const sourceCategory = categories.get(
+        extractCategoryId(source.droppableId)
+      )!;
+      const destinationCategory = categories.get(
+        extractCategoryId(destination.droppableId)
+      )!;
+
+      sourceCategory.transactions[source.index].setCategory(
+        destinationCategory
+      );
     }
   }));
 

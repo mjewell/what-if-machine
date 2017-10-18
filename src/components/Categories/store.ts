@@ -9,7 +9,7 @@ export const CategoriesStore = types.model('CategoriesStore').views(self => ({
     const { categories, addCategory } = store.categoriesStore;
 
     return {
-      categories,
+      categories: categories.values(),
       addCategory
     };
   }

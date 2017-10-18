@@ -20,7 +20,7 @@ export default function Transactions({
     <div className="mb-3">
       <Droppable droppableId={`transactions-dropzone-${category.id as string}`}>
         {(provided, snapshot) => (
-          <div ref={provided.innerRef}>
+          <div ref={provided.innerRef} className="py-3">
             <Rows category={category} transactions={transactions} />
             {provided.placeholder}
           </div>

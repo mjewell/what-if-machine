@@ -4,11 +4,11 @@ import { Category } from '../models';
 
 export const CategoriesStore = types
   .model('CategoriesStore', {
-    categories: types.optional(types.array(Category), [])
+    categories: types.optional(types.map(Category), {})
   })
   .actions(self => ({
     addCategory() {
-      self.categories.push(Category.create());
+      self.categories.put(Category.create());
     }
   }));
 

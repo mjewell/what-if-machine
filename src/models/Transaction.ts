@@ -3,7 +3,7 @@ import { types } from 'mobx-state-tree';
 import { generate } from 'shortid';
 
 import { toRRule } from '../utilities/toRRule';
-import { Category } from './Category';
+import { Category, ICategory } from './Category';
 import { IRecurrence } from './Recurrence';
 
 type IOccurrenceData = {
@@ -96,6 +96,9 @@ export const Transaction = types
     },
     setRecurrence(recurrence: IRecurrence) {
       self.recurrence = recurrence;
+    },
+    setCategory(category: ICategory) {
+      self.category = category;
     }
   }));
 
