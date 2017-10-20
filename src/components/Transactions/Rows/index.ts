@@ -8,7 +8,6 @@ import { Store } from './store';
 
 export type IProps = {
   category: ICategory;
-  transactions: ITransaction[];
 };
 
 const container = compose<IPresenterProps, IProps>(

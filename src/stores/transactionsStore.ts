@@ -1,7 +1,7 @@
 import 'twix';
 
 import { sumBy } from 'lodash';
-import { getSnapshot, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
 
 import { ICategory, ITransaction, Transaction } from '../models';

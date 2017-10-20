@@ -7,26 +7,20 @@ import Rows from './Rows';
 
 export type IProps = {
   category: ICategory;
-  transactions: ITransaction[];
-  addTransaction: () => void;
 };
 
-export default function Transactions({
-  category,
-  transactions,
-  addTransaction
-}: IProps) {
+export default function Transactions({ category }: IProps) {
   return (
     <div className="mb-3">
       <Droppable droppableId={`transactions-dropzone-${category.id as string}`}>
         {(provided, snapshot) => (
           <div ref={provided.innerRef} className="py-3">
-            <Rows category={category} transactions={transactions} />
+            <Rows category={category} />
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <Button bsStyle="success" onClick={addTransaction}>
+      <Button bsStyle="success" onClick={category.addTransaction}>
         Add Transaction
       </Button>
     </div>

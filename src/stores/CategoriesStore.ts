@@ -1,6 +1,7 @@
-import { types } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 
-import { Category } from '../models';
+import { Category, ICategory } from '../models';
+import { IStore } from '.';
 
 export const CategoriesStore = types
   .model('CategoriesStore', {
@@ -9,6 +10,12 @@ export const CategoriesStore = types
   .actions(self => ({
     addCategory() {
       self.categories.put(Category.create());
+    },
+
+    removeCategory(category: ICategory) {
+      const store = getRoot(self) as IStore;
+      category.transactions.forEach(store.transactionsStore.removeTransaction);
+      self.categories.delete(category.id as string);
     }
   }));
 

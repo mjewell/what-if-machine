@@ -3,28 +3,27 @@ import { Droppable } from 'react-beautiful-dnd';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
 
 import { ICategory } from '../../models';
-import Transactions from '../Transactions';
+import Category from './Category';
 
 export type IProps = {
   categories: ICategory[];
   addCategory: () => void;
+  removeCategory: (category: ICategory) => () => void;
 };
 
-export default function Categories({ categories, addCategory }: IProps) {
+export default function Categories({
+  categories,
+  addCategory,
+  removeCategory
+}: IProps) {
   return (
     <div className="mb-3">
       {categories.map(category => (
-        <div key={category.id as string}>
-          <FormGroup>
-            <FormControl
-              type="text"
-              placeholder="name"
-              value={category.name}
-              onChange={(e: any) => category.setName(e.target.value)}
-            />
-          </FormGroup>
-          <Transactions category={category} />
-        </div>
+        <Category
+          key={category.id as string}
+          category={category}
+          removeCategory={removeCategory(category)}
+        />
       ))}
       <Button bsStyle="success" onClick={addCategory}>
         Add Category

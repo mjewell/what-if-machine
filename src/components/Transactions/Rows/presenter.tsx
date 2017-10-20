@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { ITransaction } from '../../../models';
+import { ICategory } from '../../../models';
 import Row from '../Row';
 
 export type IProps = {
-  transactions: ITransaction[];
+  category: ICategory;
   removeTransaction: (index: number) => () => void;
 };
 
-export default function Rows({ transactions, removeTransaction }: IProps) {
+export default function Rows({ category, removeTransaction }: IProps) {
   return (
     <div>
-      {transactions.map((t, index) => (
+      {category.transactions.map((t, index) => (
         <Row
           key={t.id as string}
           transaction={t}
