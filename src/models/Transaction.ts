@@ -2,6 +2,7 @@ import { partition } from 'lodash';
 import { getParent, types } from 'mobx-state-tree';
 import { generate } from 'shortid';
 
+import { DateOnly } from '../utilities/DateOnly';
 import { toRRule } from '../utilities/toRRule';
 import { Category, ICategory } from './Category';
 import { IRecurrence } from './Recurrence';
@@ -27,7 +28,7 @@ export const Transaction = types
     // TODO: set this to TRecurrence when mobx state tree cache issue is fixed
     recurrence: types.optional(types.frozen, () => ({
       type: 'on',
-      data: new Date()
+      data: new DateOnly().dateTime
     })),
     category: types.reference(Category),
     position: types.refinement(types.number, n => n >= 0)
