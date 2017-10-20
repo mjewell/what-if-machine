@@ -11,7 +11,7 @@ export type ITransactionTotal = {
   total: number;
 };
 
-export const OverviewTableStore = types
+export const Store = types
   .model('OverviewTableStore')
   .views(self => ({
     get transactionTotals(): ITransactionTotal[] {

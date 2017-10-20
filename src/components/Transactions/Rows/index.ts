@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 import { ICategory, ITransaction } from '../../../models';
 import injectStore from '../../../utilities/injectStore';
 import Presenter, { IProps as IPresenterProps } from './presenter';
+import { Store } from './store';
 
 export type IProps = {
   category: ICategory;
@@ -11,7 +12,7 @@ export type IProps = {
 };
 
 const container = compose<IPresenterProps, IProps>(
-  injectStore('transactions.rows'),
+  injectStore(Store),
   observer
 );
 

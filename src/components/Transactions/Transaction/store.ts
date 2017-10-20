@@ -6,7 +6,7 @@ export type IProps = {
   transaction: ITransaction;
 };
 
-export const TransactionStore = types.model('TransactionStore').views(self => ({
+export const Store = types.model('TransactionStore').views(self => ({
   fromProps({ transaction }: IProps): any {
     const {
       amountStr,

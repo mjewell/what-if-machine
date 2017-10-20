@@ -24,7 +24,7 @@ onSnapshot(store, snapshot => {
 });
 
 ReactDOM.render(
-  <Provider componentsStore={componentsStore}>
+  <Provider store={store}>
     <DragDropContext onDragEnd={componentsStore.onDragEnd}>
       <App />
     </DragDropContext>

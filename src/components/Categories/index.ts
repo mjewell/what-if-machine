@@ -3,7 +3,8 @@ import { compose } from 'recompose';
 
 import injectStore from '../../utilities/injectStore';
 import Presenter, { IProps } from './presenter';
+import { Store } from './store';
 
-const container = compose<IProps, {}>(injectStore('categories'), observer);
+const container = compose<IProps, {}>(injectStore(Store), observer);
 
 export default container(Presenter);
