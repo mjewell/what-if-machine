@@ -42,10 +42,10 @@
     "@types/rrule": "^2.1.6",
     "@types/shortid": "0.0.29",
     "@types/twix": "^0.6.32",
-    "react-scripts-ts": "2.5.0",
+    "react-scripts-ts": "^2.8.0",
     "tslint": "^5.7.0",
     "tslint-react": "^3.2.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.5.3"
   },
   "scripts": {
     "start": "react-scripts-ts start",
