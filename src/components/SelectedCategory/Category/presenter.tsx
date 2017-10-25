@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
-
 import { ICategory } from '../../../models';
 import Transactions from '../../Transactions';
 

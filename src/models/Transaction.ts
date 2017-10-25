@@ -1,7 +1,6 @@
 import { partition } from 'lodash';
-import { getParent, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import { generate } from 'shortid';
-
 import { DateOnly } from '../utilities/DateOnly';
 import { toRRule } from '../utilities/toRRule';
 import { Category, ICategory } from './Category';

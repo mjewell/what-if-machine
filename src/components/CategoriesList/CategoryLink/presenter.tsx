@@ -1,9 +1,5 @@
 import * as React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import { Button, Col, Form, FormControl, FormGroup } from 'react-bootstrap';
-import * as FontAwesome from 'react-fontawesome';
 import { ICategory } from '../../../models';
-import Transactions from '../../Transactions';
 
 export type IProps = {
   category: ICategory;

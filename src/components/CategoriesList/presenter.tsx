@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import { Button, FormControl, FormGroup } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import * as FontAwesome from 'react-fontawesome';
 import { ICategory } from '../../models';
 import Category from './CategoryLink';

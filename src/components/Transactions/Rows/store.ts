@@ -1,6 +1,4 @@
-import { getEnv, types } from 'mobx-state-tree';
-
-import { IStore } from '../../../stores';
+import { types } from 'mobx-state-tree';
 import { IProps } from '.';
 
 export const Store = types.model('RowsStore').views(self => ({

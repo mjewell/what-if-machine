@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
-
-import { ICategory, ITransaction } from '../../models';
+import { ICategory } from '../../models';
 import Rows from './Rows';
 
 export type IProps = {

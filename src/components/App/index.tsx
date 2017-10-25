@@ -1,11 +1,10 @@
 import './styles.css';
 
 import * as React from 'react';
-import Categories from '../Categories';
 import CategoriesList from '../CategoriesList';
 import Graph from '../Graph';
 import OverviewTable from '../OverviewTable';
-import Transactions from '../Transactions';
+import SelectedCategory from '../SelectedCategory';
 
 const logo = require('../../logo.svg');
 
@@ -18,7 +17,7 @@ class App extends React.Component<{}, {}> {
           <h2>What-If Machine</h2>
         </div>
         <CategoriesList />
-        <Categories />
+        <SelectedCategory />
         <Graph />
         <OverviewTable />
       </div>
