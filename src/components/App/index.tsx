@@ -1,8 +1,8 @@
 import './styles.css';
 
 import * as React from 'react';
-
 import Categories from '../Categories';
+import CategoriesList from '../CategoriesList';
 import Graph from '../Graph';
 import OverviewTable from '../OverviewTable';
 import Transactions from '../Transactions';
@@ -17,6 +17,7 @@ class App extends React.Component<{}, {}> {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>What-If Machine</h2>
         </div>
+        <CategoriesList />
         <Categories />
         <Graph />
         <OverviewTable />
