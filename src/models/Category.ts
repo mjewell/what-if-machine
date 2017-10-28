@@ -1,12 +1,13 @@
 import { getRoot, types } from 'mobx-state-tree';
-import { generate } from 'shortid';
 
 import { IStore } from '../stores';
+import { generate } from 'shortid';
 
 export const Category = types
   .model('Category', {
     id: types.optional(types.identifier(), generate),
-    name: types.optional(types.string, '')
+    name: types.optional(types.string, ''),
+    position: types.refinement(types.number, n => n >= 0)
   })
   .views(self => ({
     get transactions() {

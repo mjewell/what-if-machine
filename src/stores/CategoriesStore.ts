@@ -1,28 +1,44 @@
-import { getRoot, types } from 'mobx-state-tree';
-import { IStore } from '.';
 import { Category, ICategory } from '../models';
+import { getRoot, types } from 'mobx-state-tree';
+
+import { IStore } from '.';
 
 export const CategoriesStore = types
   .model('CategoriesStore', {
-    categories: types.optional(types.map(Category), {}),
+    categoriesHash: types.optional(types.map(Category), {}),
     selectedCategory: types.maybe(types.reference(Category))
   })
+  .views(self => ({
+    get categories() {
+      return self.categoriesHash
+        .values()
+        .sort((a, b) => a.position - b.position);
+    }
+  }))
   .actions(self => ({
     addCategory() {
-      const category = Category.create();
-      self.categories.put(category);
+      const category = Category.create({ position: self.categoriesHash.size });
+      self.categoriesHash.put(category);
       self.selectedCategory = category;
     },
 
     removeCategory(category: ICategory) {
       const store = getRoot(self) as IStore;
-      category.transactions.forEach(store.transactionsStore.removeTransaction);
-
-      self.categories.delete(category.id as string);
 
       if (self.selectedCategory === category) {
-        self.selectedCategory = self.categories.values()[0];
+        self.selectedCategory = null;
       }
+
+      category.transactions.forEach(store.transactionsStore.removeTransaction);
+
+      const { position } = category;
+
+      self.categoriesHash.delete(category.id as string);
+
+      self.categoriesHash
+        .values()
+        .filter(c => c.position > position)
+        .forEach(c => (c.position -= 1));
     },
 
     selectCategory(category: ICategory) {

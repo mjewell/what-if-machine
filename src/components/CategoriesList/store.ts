@@ -1,4 +1,5 @@
 import { getEnv, types } from 'mobx-state-tree';
+
 import { ICategory } from '../../models';
 import { IStore } from '../../stores';
 
@@ -13,7 +14,7 @@ export const Store = types.model('CategoriesListStore').views(self => ({
     } = store.categoriesStore;
 
     return {
-      categories: categories.values(),
+      categories,
       addCategory,
       selectCategory: (category: ICategory) => () => selectCategory(category),
       selectedCategory
