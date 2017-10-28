@@ -1,3 +1,5 @@
+import './styles.css';
+
 import * as React from 'react';
 
 export default function DragHandle(props: {}) {

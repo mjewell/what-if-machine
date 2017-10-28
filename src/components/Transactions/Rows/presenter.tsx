@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ICategory } from '../../../models';
-import Row from '../Row';
+import TransactionRow from '../../../presenters/TransactionRow';
 
 export type IProps = {
   category: ICategory;
@@ -12,7 +12,7 @@ export default function Rows({ category, removeTransaction }: IProps) {
   return (
     <div>
       {category.transactions.map((t, index) => (
-        <Row
+        <TransactionRow
           key={t.id as string}
           transaction={t}
           removeTransaction={removeTransaction(index)}
