@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Button, Form } from 'react-bootstrap';
@@ -12,10 +13,12 @@ export type IProps = {
   transaction: ITransaction;
 };
 
-export default function TransactionRow({
+export default observer(function TransactionRow({
   removeTransaction,
   transaction
 }: IProps) {
+  const transactionProps = transactionToProps(transaction);
+
   return (
     <Draggable draggableId={`transaction-${transaction.id}`}>
       {(provided, snapshot) => (
@@ -23,7 +26,7 @@ export default function TransactionRow({
           <div ref={provided.innerRef} style={provided.draggableStyle}>
             <Form inline>
               <DragHandle {...provided.dragHandleProps} />
-              <Transaction {...transactionToProps(transaction)} />
+              <Transaction {...transactionProps} />
               <Button
                 bsStyle="danger"
                 className="ml-3"
@@ -38,4 +41,4 @@ export default function TransactionRow({
       )}
     </Draggable>
   );
-}
+});

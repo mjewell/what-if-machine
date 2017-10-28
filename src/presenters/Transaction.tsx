@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
@@ -13,7 +14,7 @@ export type IProps = {
   setRecurrence: (r: IRecurrence) => void;
 };
 
-export default function Transaction({
+export default observer(function Transaction({
   amount,
   name,
   recurrence,
@@ -49,4 +50,4 @@ export default function Transaction({
       </FormGroup>
     </Form>
   );
-}
+});

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
+
 import { ICategory } from '../../../models';
-import Transactions from '../../Transactions';
+import Transactions from '../../../presenters/Transactions';
 
 export type IProps = {
   category: ICategory;
