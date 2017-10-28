@@ -18,7 +18,7 @@ export const Store = types.model('TransactionStore').views(self => ({
     } = transaction;
 
     return {
-      amountStr,
+      amount: amountStr,
       name,
       recurrence,
       setAmount: (e: any) => setAmount(e.target.value),

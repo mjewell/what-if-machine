@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function Handle(props: {}) {
+export default function DragHandle(props: {}) {
   return (
     <span className="drag-handle" {...props}>
       :::
