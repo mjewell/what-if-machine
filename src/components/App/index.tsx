@@ -1,8 +1,8 @@
-import './styles.css';
-
 import * as React from 'react';
+
 import CategoriesList from '../CategoriesList';
 import Graph from '../Graph';
+import Header from '../../presenters/Header';
 import OverviewTable from '../OverviewTable';
 import SelectedCategory from '../SelectedCategory';
 
@@ -12,10 +12,7 @@ class App extends React.Component<{}, {}> {
   render() {
     return (
       <div>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>What-If Machine</h2>
-        </div>
+        <Header />
         <CategoriesList />
         <SelectedCategory />
         <Graph />
