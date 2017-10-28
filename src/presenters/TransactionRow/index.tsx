@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Button, Form } from 'react-bootstrap';
 
-import { ITransaction } from '../models';
-import DragHandle from './DragHandle';
-import Transaction from './Transaction';
+import { ITransaction } from '../../models';
+import DragHandle from '../DragHandle';
+import Transaction from '../Transaction';
+import transactionToProps from './transactionToProps';
 
 export type IProps = {
   removeTransaction: () => void;
@@ -22,7 +23,7 @@ export default function TransactionRow({
           <div ref={provided.innerRef} style={provided.draggableStyle}>
             <Form inline>
               <DragHandle {...provided.dragHandleProps} />
-              <Transaction transaction={transaction} />
+              <Transaction {...transactionToProps(transaction)} />
               <Button
                 bsStyle="danger"
                 className="ml-3"
