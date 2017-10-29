@@ -3,12 +3,13 @@ import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 
-import { ITransaction } from '../models';
-import TransactionRow from './TransactionRow';
+import TransactionRow, {
+  IProps as ITransactionRowProps
+} from './TransactionRow';
 
 export type IProps = {
   id: string;
-  transactions: ITransaction[];
+  transactions: ITransactionRowProps['transaction'][];
   removeTransaction: (index: number) => () => void;
   addTransaction: () => void;
 };

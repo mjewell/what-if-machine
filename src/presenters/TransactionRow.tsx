@@ -3,22 +3,18 @@ import * as React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Button, Form } from 'react-bootstrap';
 
-import { ITransaction } from '../../models';
-import DragHandle from '../DragHandle';
-import Transaction from '../Transaction';
-import transactionToProps from './transactionToProps';
+import DragHandle from './DragHandle';
+import Transaction, { IProps as ITransactionProps } from './Transaction';
 
 export type IProps = {
+  transaction: ITransactionProps['transaction'] & { id: string };
   removeTransaction: () => void;
-  transaction: ITransaction;
 };
 
 export default observer(function TransactionRow({
-  removeTransaction,
-  transaction
+  transaction,
+  removeTransaction
 }: IProps) {
-  const transactionProps = transactionToProps(transaction);
-
   return (
     <Draggable draggableId={`transaction-${transaction.id}`}>
       {(provided, snapshot) => (
@@ -26,7 +22,7 @@ export default observer(function TransactionRow({
           <div ref={provided.innerRef} style={provided.draggableStyle}>
             <Form inline>
               <DragHandle {...provided.dragHandleProps} />
-              <Transaction transaction={transactionProps} />
+              <Transaction transaction={transaction} />
               <Button
                 bsStyle="danger"
                 className="ml-3"

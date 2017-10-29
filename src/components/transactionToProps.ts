@@ -1,7 +1,8 @@
-import { ITransaction } from '../../models';
+import { ITransaction } from '../models';
 
 export default (transaction: ITransaction) => {
   const {
+    id,
     amountStr,
     name,
     recurrence,
@@ -11,6 +12,7 @@ export default (transaction: ITransaction) => {
   } = transaction;
 
   return {
+    id,
     amount: amountStr,
     name,
     recurrence,

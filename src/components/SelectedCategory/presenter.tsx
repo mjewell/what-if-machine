@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import { ICategory } from '../../models';
-import Category from '../../presenters/Category';
+import Category, { IProps as ICategoryProps } from '../../presenters/Category';
 
 export type IProps = {
-  selectedCategory: ICategory;
+  selectedCategory: ICategoryProps['category'];
   removeCategory: () => void;
 };
 

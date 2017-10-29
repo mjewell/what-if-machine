@@ -2,11 +2,17 @@ import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
 
-import { ICategory } from '../models';
-import Transactions from './Transactions';
+import Transactions, { IProps as ITransactionsProps } from './Transactions';
 
 export type IProps = {
-  category: ICategory;
+  category: {
+    name: string;
+    setName: (e: any) => void;
+    id: string;
+    transactions: ITransactionsProps['transactions'];
+    removeTransaction: (index: number) => () => void;
+    addTransaction: () => void;
+  };
   removeCategory: () => void;
 };
 
@@ -21,13 +27,13 @@ export default observer(function Category({
           type="text"
           placeholder="name"
           value={category.name}
-          onChange={(e: any) => category.setName(e.target.value)}
+          onChange={category.setName}
         />
       </FormGroup>
       <Transactions
         id={category.id as string}
         transactions={category.transactions}
-        removeTransaction={index => () => category.removeTransaction(index)}
+        removeTransaction={category.removeTransaction}
         addTransaction={category.addTransaction}
       />
       <Button bsStyle="danger" className="ml-3" onClick={removeCategory}>
