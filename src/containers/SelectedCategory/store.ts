@@ -8,8 +8,8 @@ export const Store = types.model('CategoriesStore').views(self => ({
     const { selectedCategory, removeCategory } = store.categoriesStore;
 
     return {
-      selectedCategory,
-      removeCategory: () => selectedCategory && removeCategory(selectedCategory)
+      category: selectedCategory,
+      removeCategory: () => removeCategory(selectedCategory!)
     };
   }
 }));
