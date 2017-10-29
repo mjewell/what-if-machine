@@ -6,22 +6,17 @@ import { IRecurrence } from '../models';
 import Recurrence from './Recurrence';
 
 export type IProps = {
-  amount: string;
-  name: string;
-  recurrence: IRecurrence;
-  setAmount: (e: any) => void;
-  setName: (e: any) => void;
-  setRecurrence: (r: IRecurrence) => void;
+  transaction: {
+    amount: string;
+    name: string;
+    recurrence: IRecurrence;
+    setAmount: (e: any) => void;
+    setName: (e: any) => void;
+    setRecurrence: (r: IRecurrence) => void;
+  };
 };
 
-export default observer(function Transaction({
-  amount,
-  name,
-  recurrence,
-  setAmount,
-  setName,
-  setRecurrence
-}: IProps) {
+export default observer(function Transaction({ transaction }: IProps) {
   return (
     <Form inline>
       <FormGroup>
@@ -31,8 +26,8 @@ export default observer(function Transaction({
             style={{ width: 130 }}
             type="number"
             placeholder="amount"
-            value={amount}
-            onChange={setAmount}
+            value={transaction.amount}
+            onChange={transaction.setAmount}
           />
         </InputGroup>
         for
@@ -40,12 +35,12 @@ export default observer(function Transaction({
           type="text"
           placeholder="name"
           className="mx-2"
-          value={name}
-          onChange={setName}
+          value={transaction.name}
+          onChange={transaction.setName}
         />
         <Recurrence
-          value={recurrence as IRecurrence}
-          onChange={setRecurrence}
+          value={transaction.recurrence as IRecurrence}
+          onChange={transaction.setRecurrence}
         />
       </FormGroup>
     </Form>

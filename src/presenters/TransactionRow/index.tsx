@@ -26,7 +26,7 @@ export default observer(function TransactionRow({
           <div ref={provided.innerRef} style={provided.draggableStyle}>
             <Form inline>
               <DragHandle {...provided.dragHandleProps} />
-              <Transaction {...transactionProps} />
+              <Transaction transaction={transactionProps} />
               <Button
                 bsStyle="danger"
                 className="ml-3"
