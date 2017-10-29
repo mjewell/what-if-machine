@@ -1,6 +1,6 @@
-import { Category, ICategory } from '../models';
 import { getRoot, types } from 'mobx-state-tree';
 
+import { Category, ICategory } from '../models';
 import { IStore } from '.';
 
 export const CategoriesStore = types
@@ -41,7 +41,7 @@ export const CategoriesStore = types
         .forEach(c => (c.position -= 1));
     },
 
-    selectCategory(category: ICategory) {
+    selectCategory(category: ICategory | null) {
       self.selectedCategory = category;
     }
   }));

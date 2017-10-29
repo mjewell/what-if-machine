@@ -9,7 +9,7 @@ import ListElement from './ListElement';
 export type IProps = {
   categories: ICategory[];
   addCategory: () => void;
-  selectCategory: (category: ICategory) => () => void;
+  selectCategory: (category: ICategory) => void;
   selectedCategory: ICategory;
 };
 
