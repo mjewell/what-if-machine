@@ -3,33 +3,39 @@ import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 
-import { ICategory } from '../models';
+import { ITransaction } from '../models';
 import TransactionRow from './TransactionRow';
 
 export type IProps = {
-  category: ICategory;
+  id: string;
+  transactions: ITransaction[];
+  removeTransaction: (index: number) => () => void;
+  addTransaction: () => void;
 };
 
-export default observer(function Transactions({ category }: IProps) {
-  category.transactions.forEach(t => t);
-
+export default observer(function Transactions({
+  id,
+  transactions,
+  removeTransaction,
+  addTransaction
+}: IProps) {
   return (
     <div className="mb-3">
-      <Droppable droppableId={`transactions-dropzone-${category.id as string}`}>
+      <Droppable droppableId={`transactions-dropzone-${id}`}>
         {(provided, snapshot) => (
           <div ref={provided.innerRef} className="py-3">
-            {category.transactions.map((t, index) => (
+            {transactions.map((t, index) => (
               <TransactionRow
                 key={t.id as string}
                 transaction={t}
-                removeTransaction={() => category.removeTransaction(index)}
+                removeTransaction={removeTransaction(index)}
               />
             ))}
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <Button bsStyle="success" onClick={category.addTransaction}>
+      <Button bsStyle="success" onClick={addTransaction}>
         Add Transaction
       </Button>
     </div>

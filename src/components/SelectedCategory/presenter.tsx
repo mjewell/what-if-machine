@@ -1,6 +1,7 @@
 import * as React from 'react';
+
 import { ICategory } from '../../models';
-import Category from './Category';
+import Category from '../../presenters/Category';
 
 export type IProps = {
   selectedCategory: ICategory;
