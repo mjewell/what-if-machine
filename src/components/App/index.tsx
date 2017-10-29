@@ -6,8 +6,6 @@ import Graph from '../Graph';
 import OverviewTable from '../OverviewTable';
 import SelectedCategory from '../SelectedCategory';
 
-const logo = require('../../logo.svg');
-
 class App extends React.Component<{}, {}> {
   render() {
     return (

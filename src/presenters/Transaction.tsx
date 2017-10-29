@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
 import { IRecurrence } from '../models';
 import Recurrence from './Recurrence';
