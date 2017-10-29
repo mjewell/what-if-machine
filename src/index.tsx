@@ -6,8 +6,8 @@ import * as React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
-import App from './components/App';
 import { DraggingStore } from './DraggingStore';
+import App from './layout/App';
 import registerServiceWorker from './registerServiceWorker';
 import { Store } from './stores';
 
