@@ -1,8 +1,10 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as FontAwesome from 'react-fontawesome';
-import { ICategory } from '../../models';
-import Category from './CategoryLink';
+
+import { ICategory } from '../models';
+import ListElement from './ListElement';
 
 export type IProps = {
   categories: ICategory[];
@@ -11,19 +13,19 @@ export type IProps = {
   selectedCategory: ICategory;
 };
 
-export default function Categories({
-  categories,
+export default observer(function Categories({
   addCategory,
+  categories,
   selectCategory,
   selectedCategory
 }: IProps) {
   return (
     <div className="p-2 d-flex flex-column">
       {categories.map(category => (
-        <Category
+        <ListElement
           key={category.id as string}
-          category={category}
-          onClick={selectCategory(category)}
+          element={category}
+          onClick={() => selectCategory(category)}
           isSelected={category === selectedCategory}
         />
       ))}
@@ -32,4 +34,4 @@ export default function Categories({
       </Button>
     </div>
   );
-}
+});

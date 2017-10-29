@@ -16,7 +16,7 @@ export const Store = types.model('CategoriesListStore').views(self => ({
     return {
       categories,
       addCategory,
-      selectCategory: (category: ICategory) => () => selectCategory(category),
+      selectCategory,
       selectedCategory
     };
   }

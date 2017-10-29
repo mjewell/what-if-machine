@@ -1,14 +1,16 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
-import { ICategory } from '../../../models';
 
 export type IProps = {
-  category: ICategory;
+  element: {
+    name: string;
+  };
   onClick: () => void;
   isSelected: boolean;
 };
 
-export default function CategoryLink({
-  category,
+export default observer(function ListElement({
+  element,
   onClick,
   isSelected
 }: IProps) {
@@ -18,7 +20,7 @@ export default function CategoryLink({
       onClick={onClick}
       style={{ backgroundColor: isSelected ? '#EEE' : '#DDD' }}
     >
-      <h4 className="m-0">{category.name || '(unnamed)'}</h4>
+      <h4 className="m-0">{element.name || '(unnamed)'}</h4>
     </div>
   );
-}
+});
