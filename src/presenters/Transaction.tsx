@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
+import { Component } from 'react';
 import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
 import { IRecurrence } from '../models';
@@ -10,37 +11,52 @@ export type IProps = {
     amount: string;
     name: string;
     recurrence: IRecurrence;
-    setAmount: (e: any) => void;
-    setName: (e: any) => void;
+    setAmount: (amount: string) => void;
+    setName: (name: string) => void;
     setRecurrence: (r: IRecurrence) => void;
   };
 };
 
-export default observer(function Transaction({ transaction }: IProps) {
-  return (
-    <FormGroup>
-      <InputGroup className="mr-2">
-        <InputGroup.Addon>$</InputGroup.Addon>
+@observer
+export default class Transaction extends Component<IProps, {}> {
+  onAmountChange = (e: any) => {
+    const { transaction } = this.props;
+    transaction.setAmount(e.target.value);
+  };
+
+  onNameChange = (e: any) => {
+    const { transaction } = this.props;
+    transaction.setName(e.target.value);
+  };
+
+  render() {
+    const { transaction } = this.props;
+
+    return (
+      <FormGroup>
+        <InputGroup className="mr-2">
+          <InputGroup.Addon>$</InputGroup.Addon>
+          <FormControl
+            style={{ width: 130 }}
+            type="number"
+            placeholder="amount"
+            value={transaction.amount}
+            onChange={this.onAmountChange}
+          />
+        </InputGroup>
+        for
         <FormControl
-          style={{ width: 130 }}
-          type="number"
-          placeholder="amount"
-          value={transaction.amount}
-          onChange={transaction.setAmount}
+          type="text"
+          placeholder="name"
+          className="mx-2"
+          value={transaction.name}
+          onChange={this.onNameChange}
         />
-      </InputGroup>
-      for
-      <FormControl
-        type="text"
-        placeholder="name"
-        className="mx-2"
-        value={transaction.name}
-        onChange={transaction.setName}
-      />
-      <Recurrence
-        value={transaction.recurrence as IRecurrence}
-        onChange={transaction.setRecurrence}
-      />
-    </FormGroup>
-  );
-});
+        <Recurrence
+          value={transaction.recurrence as IRecurrence}
+          onChange={transaction.setRecurrence}
+        />
+      </FormGroup>
+    );
+  }
+}
