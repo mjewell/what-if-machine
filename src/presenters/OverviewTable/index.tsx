@@ -2,7 +2,14 @@ import * as React from 'react';
 import { Table } from 'react-bootstrap';
 
 import Row from './Row';
-import { ITransactionTotal } from './store';
+
+export type ITransactionTotal = {
+  id: {};
+  name: string;
+  before: number;
+  during: number;
+  total: number;
+};
 
 export type IProps = {
   transactionTotals: ITransactionTotal[];

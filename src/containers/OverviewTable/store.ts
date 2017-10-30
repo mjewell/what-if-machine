@@ -1,15 +1,8 @@
 import { sumBy } from 'lodash';
 import { getEnv, types } from 'mobx-state-tree';
 
+import { ITransactionTotal } from '../../presenters/OverviewTable';
 import { IStore } from '../../stores';
-
-export type ITransactionTotal = {
-  id: {};
-  name: string;
-  before: number;
-  during: number;
-  total: number;
-};
 
 export const Store = types
   .model('OverviewTableStore')

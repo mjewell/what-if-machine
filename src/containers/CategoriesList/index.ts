@@ -5,6 +5,6 @@ import Presenter, { IProps } from '../../presenters/CategoriesList';
 import injectStore from '../../utilities/injectStore';
 import { Store } from './store';
 
-const container = compose<IProps, {}>(injectStore(Store), observer);
+const container = compose<IProps, {}>(injectStore(Store));
 
 export default container(Presenter);

@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import CategoriesList from '../containers/CategoriesList';
+// import Graph from './Graph';
+import OverviewTable from '../containers/OverviewTable';
 import SelectedCategory from '../containers/SelectedCategory';
 import Header from '../presenters/Header';
-
-// import Graph from './Graph';
-// import OverviewTable from './OverviewTable';
 
 export default function App() {
   return (
@@ -16,7 +15,7 @@ export default function App() {
         <SelectedCategory />
       </div>
       {/* <Graph /> */}
-      {/* <OverviewTable /> */}
+      {<OverviewTable />}
     </div>
   );
 }

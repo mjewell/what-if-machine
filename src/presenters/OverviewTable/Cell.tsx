@@ -22,6 +22,6 @@ export type IProps = {
   isSubtotal?: boolean;
 };
 
-export default function Row({ val, name = val, isSubtotal = false }: IProps) {
+export default function Cell({ val, name = val, isSubtotal = false }: IProps) {
   return <td className={generateClassNames(val, isSubtotal)}>{name}</td>;
 }
