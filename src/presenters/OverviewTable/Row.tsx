@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
 
 import Cell from './Cell';
@@ -10,7 +11,7 @@ export type IProps = {
   isSubtotal: boolean;
 };
 
-export default function Row({
+export default observer(function Row({
   name,
   before,
   during,
@@ -25,4 +26,4 @@ export default function Row({
       <Cell val={total} isSubtotal={isSubtotal} />
     </tr>
   );
-}
+});

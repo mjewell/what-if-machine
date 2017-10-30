@@ -7,9 +7,10 @@ import { scaleLinear, scaleTime } from '@vx/scale';
 import { Bar, Line, LinePath } from '@vx/shape';
 import { Tooltip } from '@vx/tooltip';
 import { bisector, extent, max, min } from 'd3-array';
+import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { ITimeSeriesData } from '../../stores';
+import { ITimeSeriesData } from '../stores';
 
 type Props = {
   timeSeries: {
@@ -34,6 +35,7 @@ const xAccessor = (d: ITimeSeriesData) => d.date;
 const yAccessor = (d: ITimeSeriesData) => d.amount;
 const bisectDate = bisector(xAccessor).left;
 
+@observer
 export default class Graph extends React.Component<Props, State> {
   state: State = { tooltipData: null, tooltipLeft: 0, tooltipTop: 0 };
   svg: any;

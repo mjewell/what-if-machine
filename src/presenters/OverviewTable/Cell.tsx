@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
 
 function generateClassNames(amount: number, isSubtotal: boolean): string {
@@ -22,6 +23,10 @@ export type IProps = {
   isSubtotal?: boolean;
 };
 
-export default function Cell({ val, name = val, isSubtotal = false }: IProps) {
+export default observer(function Cell({
+  val,
+  name = val,
+  isSubtotal = false
+}: IProps) {
   return <td className={generateClassNames(val, isSubtotal)}>{name}</td>;
-}
+});

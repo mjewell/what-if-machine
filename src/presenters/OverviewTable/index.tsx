@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import { Table } from 'react-bootstrap';
 
@@ -15,7 +16,7 @@ export type IProps = {
   transactionTotals: ITransactionTotal[];
 };
 
-export default function OverviewTable({ transactionTotals }: IProps) {
+export default observer(function OverviewTable({ transactionTotals }: IProps) {
   const rows = transactionTotals.map((d, index) => (
     <Row
       key={d.id as string}
@@ -37,4 +38,4 @@ export default function OverviewTable({ transactionTotals }: IProps) {
       <tbody>{rows}</tbody>
     </Table>
   );
-}
+});

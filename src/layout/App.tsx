@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import CategoriesList from '../containers/CategoriesList';
-// import Graph from './Graph';
+import Graph from '../containers/Graph';
 import OverviewTable from '../containers/OverviewTable';
 import SelectedCategory from '../containers/SelectedCategory';
 import Header from '../presenters/Header';
@@ -14,7 +14,7 @@ export default function App() {
         <CategoriesList />
         <SelectedCategory />
       </div>
-      {/* <Graph /> */}
+      {<Graph />}
       {<OverviewTable />}
     </div>
   );
