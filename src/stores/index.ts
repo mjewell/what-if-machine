@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 
-import { ComponentsStore } from '../containers/store';
+import { ComponentsStore } from '../components/containers/store';
 import { CategoriesStore } from './CategoriesStore';
 import { FiltersStore } from './FiltersStore';
 import { TransactionsStore } from './TransactionsStore';
@@ -14,7 +14,7 @@ export const Store = types.model('Store', {
 
 export type IStore = typeof Store.Type;
 
-export * from '../containers/store';
+export * from '../components/containers/store';
 export * from './CategoriesStore';
 export * from './FiltersStore';
 export * from './TransactionsStore';

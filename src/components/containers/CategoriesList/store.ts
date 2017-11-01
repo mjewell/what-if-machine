@@ -1,7 +1,7 @@
 import { getRoot, types } from 'mobx-state-tree';
 
-import { ICategory } from '../../models';
-import { IStore } from '../../stores';
+import { ICategory } from '../../../models';
+import { IStore } from '../../../stores';
 
 export const CategoriesListStore = types
   .model('CategoriesListStore')

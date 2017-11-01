@@ -6,7 +6,7 @@ import {
   IEnding,
   IEndingData,
   IOnEndingData
-} from '../../models';
+} from '../../../models';
 import AfterBranch from './AfterBranch';
 import OnBranch from './OnBranch';
 import withBranchStates from './withBranchStates';

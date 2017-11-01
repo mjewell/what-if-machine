@@ -1,8 +1,8 @@
 import { sumBy } from 'lodash';
 import { getRoot, types } from 'mobx-state-tree';
 
+import { IStore } from '../../../stores';
 import { ITransactionTotal } from '../../presenters/OverviewTable';
-import { IStore } from '../../stores';
 
 export const OverviewTableStore = types
   .model('OverviewTableStore')

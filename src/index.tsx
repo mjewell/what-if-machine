@@ -6,7 +6,7 @@ import * as React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
-import App from './layout/App';
+import App from './components/layout/App';
 import registerServiceWorker from './registerServiceWorker';
 import { Store } from './stores';
 

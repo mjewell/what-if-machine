@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import * as FontAwesome from 'react-fontawesome';
 
-import { ICategory } from '../models';
+import { ICategory } from '../../models';
 import ListElement from './ListElement';
 
 export type IProps = {

@@ -1,7 +1,7 @@
 import { getRoot, types } from 'mobx-state-tree';
 
-import { IStore } from '../../stores';
-import { DateOnly } from '../../utilities/DateOnly';
+import { IStore } from '../../../stores';
+import { DateOnly } from '../../../utilities/DateOnly';
 
 export const GraphStore = types.model('GraphStore').views(self => ({
   get timeSeries() {

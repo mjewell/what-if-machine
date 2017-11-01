@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
-import { IAfterEndingData } from '../../models';
+import { IAfterEndingData } from '../../../models';
 
 type IProps = {
   value: IAfterEndingData;

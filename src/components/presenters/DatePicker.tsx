@@ -5,7 +5,7 @@ import * as React from 'react';
 import { SingleDatePicker } from 'react-dates';
 import { generate } from 'shortid';
 
-import { DateOnly } from '../utilities/DateOnly';
+import { DateOnly } from '../../utilities/DateOnly';
 
 export type IValue = Date | null;
 

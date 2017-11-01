@@ -1,8 +1,8 @@
 import { inject } from 'mobx-react';
 import { branch, compose, renderNothing } from 'recompose';
 
+import { IStore } from '../../stores';
 import Presenter, { IProps } from '../presenters/Category';
-import { IStore } from '../stores';
 
 const injectProps = inject(({ store }: { store: IStore }) => {
   const { selectedCategory, removeCategory } = store.categories;

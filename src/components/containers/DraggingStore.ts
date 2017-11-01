@@ -1,7 +1,7 @@
 import { getEnv, types } from 'mobx-state-tree';
 import { DropResult } from 'react-beautiful-dnd';
 
-import { IStore } from '../stores';
+import { IStore } from '../../stores';
 
 function extractCategoryId(dropzoneId: string) {
   if (!dropzoneId.startsWith('transactions-dropzone-')) {

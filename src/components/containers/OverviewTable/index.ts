@@ -1,8 +1,8 @@
 import { inject } from 'mobx-react';
 import { compose } from 'recompose';
 
+import { IStore } from '../../../stores';
 import Presenter, { IProps } from '../../presenters/OverviewTable';
-import { IStore } from '../../stores';
 
 const injectProps = inject(({ store }: { store: IStore }) => ({
   transactionTotals: store.components.overviewTable.transactionTotals

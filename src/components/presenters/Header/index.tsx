@@ -2,7 +2,7 @@ import './styles.css';
 
 import * as React from 'react';
 
-const logo = require('../../logo.svg');
+const logo = require('../../../logo.svg');
 
 export default function Header() {
   return (
