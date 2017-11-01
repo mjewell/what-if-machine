@@ -1,10 +1,13 @@
-import { observer } from 'mobx-react';
+import { inject } from 'mobx-react';
 import { compose } from 'recompose';
 
 import Presenter, { IProps } from '../../presenters/OverviewTable';
-import injectStore from '../../utilities/injectStore';
-import { Store } from './store';
+import { IStore } from '../../stores';
 
-const container = compose<IProps, {}>(injectStore(Store));
+const injectProps = inject(({ store }: { store: IStore }) => ({
+  transactionTotals: store.componentsStore.overviewTable.transactionTotals
+}));
+
+const container = compose<IProps, {}>(injectProps);
 
 export default container(Presenter);

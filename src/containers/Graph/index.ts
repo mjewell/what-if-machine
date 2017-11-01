@@ -1,10 +1,13 @@
-import { observer } from 'mobx-react';
+import { inject } from 'mobx-react';
 import { compose } from 'recompose';
 
 import Presenter from '../../presenters/Graph';
-import injectStore from '../../utilities/injectStore';
-import { Store } from './store';
+import { IStore } from '../../stores';
 
-const container = compose(injectStore(Store));
+const injectProps = inject(({ store }: { store: IStore }) => ({
+  timeSeries: store.componentsStore.graph.timeSeries
+}));
+
+const container = compose(injectProps);
 
 export default container(Presenter);

@@ -1,14 +1,14 @@
 import { sumBy } from 'lodash';
-import { getEnv, types } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 
 import { ITransactionTotal } from '../../presenters/OverviewTable';
 import { IStore } from '../../stores';
 
-export const Store = types
+export const OverviewTableStore = types
   .model('OverviewTableStore')
   .views(self => ({
     get transactionTotals(): ITransactionTotal[] {
-      const store = getEnv(self).store as IStore;
+      const store = getRoot(self) as IStore;
       const { startDate, endDate } = store.filtersStore;
       const { transactions } = store.transactionsStore;
 
@@ -30,12 +30,5 @@ export const Store = types
           total: sumBy(itemTotals, itemTotal => itemTotal.total)
         }
       ];
-    }
-  }))
-  .views(self => ({
-    get asProps() {
-      return {
-        transactionTotals: self.transactionTotals
-      };
     }
   }));
