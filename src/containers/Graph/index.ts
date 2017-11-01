@@ -5,7 +5,7 @@ import Presenter from '../../presenters/Graph';
 import { IStore } from '../../stores';
 
 const injectProps = inject(({ store }: { store: IStore }) => ({
-  timeSeries: store.componentsStore.graph.timeSeries
+  timeSeries: store.components.graph.timeSeries
 }));
 
 const container = compose(injectProps);

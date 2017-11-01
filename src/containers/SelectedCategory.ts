@@ -5,7 +5,7 @@ import Presenter, { IProps } from '../presenters/Category';
 import { IStore } from '../stores';
 
 const injectProps = inject(({ store }: { store: IStore }) => {
-  const { selectedCategory, removeCategory } = store.categoriesStore;
+  const { selectedCategory, removeCategory } = store.categories;
 
   return {
     category: selectedCategory,

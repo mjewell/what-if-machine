@@ -1,7 +1,7 @@
 import { getEnv, types } from 'mobx-state-tree';
-
 import { DropResult } from 'react-beautiful-dnd';
-import { IStore } from './stores';
+
+import { IStore } from '../stores';
 
 function extractCategoryId(dropzoneId: string) {
   if (!dropzoneId.startsWith('transactions-dropzone-')) {
@@ -20,7 +20,7 @@ export const DraggingStore = types.model('DraggingStore').actions(self => ({
     }
 
     const store = getEnv(self).store as IStore;
-    const { categoriesHash } = store.categoriesStore;
+    const { categoriesHash } = store.categories;
 
     const sourceCategory = categoriesHash.get(
       extractCategoryId(source.droppableId)

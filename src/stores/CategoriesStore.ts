@@ -29,7 +29,7 @@ export const CategoriesStore = types
         self.selectedCategory = null;
       }
 
-      category.transactions.forEach(store.transactionsStore.removeTransaction);
+      category.transactions.forEach(store.transactions.removeTransaction);
 
       const { position } = category;
 

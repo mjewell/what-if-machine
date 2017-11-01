@@ -9,8 +9,8 @@ export const OverviewTableStore = types
   .views(self => ({
     get transactionTotals(): ITransactionTotal[] {
       const store = getRoot(self) as IStore;
-      const { startDate, endDate } = store.filtersStore;
-      const { transactions } = store.transactionsStore;
+      const { startDate, endDate } = store.filters;
+      const { transactions } = store.transactions;
 
       const itemTotals = transactions
         .values()

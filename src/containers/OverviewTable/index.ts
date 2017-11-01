@@ -5,7 +5,7 @@ import Presenter, { IProps } from '../../presenters/OverviewTable';
 import { IStore } from '../../stores';
 
 const injectProps = inject(({ store }: { store: IStore }) => ({
-  transactionTotals: store.componentsStore.overviewTable.transactionTotals
+  transactionTotals: store.components.overviewTable.transactionTotals
 }));
 
 const container = compose<IProps, {}>(injectProps);

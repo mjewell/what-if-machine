@@ -6,10 +6,10 @@ import { FiltersStore } from './FiltersStore';
 import { TransactionsStore } from './TransactionsStore';
 
 export const Store = types.model('Store', {
-  componentsStore: types.optional(ComponentsStore, {}),
-  categoriesStore: types.optional(CategoriesStore, {}),
-  transactionsStore: types.optional(TransactionsStore, {}),
-  filtersStore: types.optional(FiltersStore, {})
+  components: types.optional(ComponentsStore, {}),
+  categories: types.optional(CategoriesStore, {}),
+  transactions: types.optional(TransactionsStore, {}),
+  filters: types.optional(FiltersStore, {})
 });
 
 export type IStore = typeof Store.Type;

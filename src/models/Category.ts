@@ -1,7 +1,7 @@
 import { getRoot, types } from 'mobx-state-tree';
+import { generate } from 'shortid';
 
 import { IStore } from '../stores';
-import { generate } from 'shortid';
 
 export const Category = types
   .model('Category', {
@@ -13,7 +13,7 @@ export const Category = types
     get transactions() {
       const root = getRoot(self) as IStore;
 
-      return root.transactionsStore.transactions
+      return root.transactions.transactions
         .values()
         .filter(transaction => transaction.category === self)
         .sort((a, b) => a.position - b.position);
@@ -27,7 +27,7 @@ export const Category = types
     addTransaction() {
       const root = getRoot(self) as IStore;
 
-      root.transactionsStore.addTransaction(
+      root.transactions.addTransaction(
         self as ICategory,
         self.transactions.length
       );
@@ -36,7 +36,7 @@ export const Category = types
     removeTransaction(index: number) {
       const root = getRoot(self) as IStore;
 
-      root.transactionsStore.removeTransaction(self.transactions[index]);
+      root.transactions.removeTransaction(self.transactions[index]);
     }
   }));
 

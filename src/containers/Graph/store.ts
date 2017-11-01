@@ -6,9 +6,9 @@ import { DateOnly } from '../../utilities/DateOnly';
 export const GraphStore = types.model('GraphStore').views(self => ({
   get timeSeries() {
     const store = getRoot(self) as IStore;
-    const { transactionsStore, filtersStore } = store;
-    const { startDate, endDate } = filtersStore;
-    const { generateDailyAmounts } = transactionsStore;
+    const { transactions, filters } = store;
+    const { startDate, endDate } = filters;
+    const { generateDailyAmounts } = transactions;
 
     return generateDailyAmounts(
       new DateOnly(startDate).dateTime,

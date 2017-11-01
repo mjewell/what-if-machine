@@ -10,12 +10,12 @@ const injectProps = inject(({ store }: { store: IStore }) => {
     addCategory,
     selectCategory,
     selectedCategory
-  } = store.categoriesStore;
+  } = store.categories;
 
   return {
     categories,
     addCategory,
-    selectCategory: store.componentsStore.categoriesList.toggleSelected,
+    selectCategory: store.components.categoriesList.toggleSelected,
     selectedCategory
   };
 });

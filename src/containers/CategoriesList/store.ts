@@ -8,7 +8,7 @@ export const CategoriesListStore = types
   .actions(self => ({
     toggleSelected(category: ICategory) {
       const store = getRoot(self) as IStore;
-      const { selectCategory, selectedCategory } = store.categoriesStore;
+      const { selectCategory, selectedCategory } = store.categories;
 
       if (category === selectedCategory) {
         selectCategory(null);
