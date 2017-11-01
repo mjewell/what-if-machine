@@ -6,14 +6,12 @@ import * as React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
-import App from './components/App';
-import { DraggingStore } from './DraggingStore';
+import App from './components/layout/App';
 import registerServiceWorker from './registerServiceWorker';
 import { Store } from './stores';
 
 const store = Store.create({});
 const state = localStorage.getItem('state');
-const draggingStore = DraggingStore.create({}, { store });
 
 if (state) {
   applySnapshot(store, JSON.parse(state));
@@ -25,7 +23,7 @@ onSnapshot(store, snapshot => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <DragDropContext onDragEnd={draggingStore.onDragEnd}>
+    <DragDropContext onDragEnd={store.components.dragging.onDragEnd}>
       <App />
     </DragDropContext>
   </Provider>,
