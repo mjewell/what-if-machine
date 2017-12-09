@@ -14,8 +14,8 @@ export default function App() {
         <CategoriesList />
         <SelectedCategory />
       </div>
-      {<Graph />}
-      {<OverviewTable />}
+      <Graph />
+      <OverviewTable />
     </div>
   );
 }
