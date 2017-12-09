@@ -1,4 +1,4 @@
-import { getEnv, types } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 import { DropResult } from 'react-beautiful-dnd';
 
 import { IStore } from '../../stores';
@@ -19,7 +19,7 @@ export const DraggingStore = types.model('DraggingStore').actions(self => ({
       return;
     }
 
-    const store = getEnv(self).store as IStore;
+    const store = getRoot(self) as IStore;
     const { categoriesHash } = store.categories;
 
     const sourceCategory = categoriesHash.get(
