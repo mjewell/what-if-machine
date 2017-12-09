@@ -8,7 +8,7 @@ import Recurrence from './Recurrence';
 
 export type IProps = {
   transaction: {
-    amount: string;
+    amountStr: string;
     name: string;
     recurrence: IRecurrence;
     setAmount: (amount: string) => void;
@@ -40,7 +40,7 @@ export default class Transaction extends Component<IProps, {}> {
             style={{ width: 130 }}
             type="number"
             placeholder="amount"
-            value={transaction.amount}
+            value={transaction.amountStr}
             onChange={this.onAmountChange}
           />
         </InputGroup>
