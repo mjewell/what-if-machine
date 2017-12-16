@@ -1,21 +1,22 @@
+import { Decimal } from 'decimal.js-light';
 import { partition } from 'lodash';
 import { types } from 'mobx-state-tree';
 import { generate } from 'shortid';
-
-import { DateOnly } from '../utilities/DateOnly';
-import { toRRule } from '../utilities/toRRule';
 import { Category, ICategory } from './Category';
 import { IRecurrence } from './Recurrence';
+import { DateOnly } from '../utilities/DateOnly';
+import { sumDecimals } from '../utilities/decimals';
+import { toRRule } from '../utilities/toRRule';
 
 type IOccurrenceData = {
-  [key: number]: number;
-  before: number;
+  [key: string]: Decimal;
+  before: Decimal;
 };
 
 type ITotalData = {
-  before: number;
-  during: number;
-  total: number;
+  before: Decimal;
+  during: Decimal;
+  total: Decimal;
 };
 
 const minDate = new Date('2000/01/01');
@@ -35,7 +36,7 @@ export const Transaction = types
   })
   .views(self => ({
     get amount() {
-      return +self.amountStr || 0;
+      return new Decimal(+self.amountStr || 0);
     },
     get schedule() {
       return toRRule(self.recurrence);
@@ -66,10 +67,10 @@ export const Transaction = types
       return occurrencesAfter.reduce(
         (obj, occurrence) => ({
           ...obj,
-          [occurrence.getTime()]: self.amount
+          [occurrence.getTime().toString()]: self.amount
         }),
         {
-          before: occurrencesBefore.length * self.amount
+          before: self.amount.mul(occurrencesBefore.length)
         }
       );
     }
@@ -78,14 +79,16 @@ export const Transaction = types
     getTotals(startDate: Date, endDate: Date): ITotalData {
       const occurrences = self.getOccurrences(startDate, endDate);
 
-      const during = Object.keys(occurrences)
-        .filter(k => k !== 'before')
-        .reduce((sum, time) => sum + occurrences[time], 0);
+      const during = sumDecimals(
+        Object.keys(occurrences)
+          .filter(k => k !== 'before')
+          .map(time => occurrences[time])
+      );
 
       return {
         before: occurrences.before,
         during,
-        total: occurrences.before + during
+        total: occurrences.before.add(during)
       };
     }
   }))

@@ -12,6 +12,7 @@
     "@vx/shape": "0.0.136",
     "@vx/tooltip": "0.0.137",
     "d3-array": "^1.2.0",
+    "decimal.js-light": "^2.3.1",
     "lodash": "^4.17.4",
     "mobx": "^3.3.1",
     "mobx-react": "^4.2.2",

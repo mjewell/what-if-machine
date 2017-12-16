@@ -1,7 +1,6 @@
-import { sumBy } from 'lodash';
 import { getRoot, types } from 'mobx-state-tree';
-
 import { IStore } from '../../../stores';
+import { sumDecimals } from '../../../utilities/decimals';
 import { ITransactionTotal } from '../../presenters/OverviewTable';
 
 export const OverviewTableStore = types
@@ -21,13 +20,25 @@ export const OverviewTableStore = types
         }));
 
       return [
-        ...itemTotals,
+        ...itemTotals.map(({ id, name, before, during, total }) => ({
+          id,
+          name,
+          before: +before.toFixed(2),
+          during: +during.toFixed(2),
+          total: +total.toFixed(2)
+        })),
         {
           id: 'totals',
           name: 'Total',
-          before: sumBy(itemTotals, itemTotal => itemTotal.before),
-          during: sumBy(itemTotals, itemTotal => itemTotal.during),
-          total: sumBy(itemTotals, itemTotal => itemTotal.total)
+          before: +sumDecimals(
+            itemTotals.map(itemTotal => itemTotal.before)
+          ).toFixed(2),
+          during: +sumDecimals(
+            itemTotals.map(itemTotal => itemTotal.during)
+          ).toFixed(2),
+          total: +sumDecimals(
+            itemTotals.map(itemTotal => itemTotal.total)
+          ).toFixed(2)
         }
       ];
     }

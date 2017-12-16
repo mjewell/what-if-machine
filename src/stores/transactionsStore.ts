@@ -1,10 +1,9 @@
-import 'twix';
-
 import { sumBy } from 'lodash';
 import { types } from 'mobx-state-tree';
 import * as moment from 'moment';
-
+import 'twix';
 import { ICategory, ITransaction, Transaction } from '../models';
+import { sumDecimals } from '../utilities/decimals';
 
 export type ITimeSeriesData = {
   date: Date;
@@ -29,15 +28,17 @@ export const TransactionsStore = types
         const range = moment(startDate).twix(endDate, { allDay: true });
         const days = (range as any).toArray('days') as moment.Moment[];
 
-        let sum = sumBy(occurrences, occurrence => occurrence.before);
+        let sum = sumDecimals(occurrences.map(occurrence => occurrence.before));
 
         return days.map(day => day.toDate()).map(day => {
           const time = day.getTime();
-          sum += sumBy(occurrences, occurrence => occurrence[time] || 0);
+          sum = sum.add(
+            sumDecimals(occurrences.map(occurrence => occurrence[time] || 0))
+          );
 
           return {
             date: day,
-            amount: sum
+            amount: +sum.toFixed(2)
           };
         });
       }
