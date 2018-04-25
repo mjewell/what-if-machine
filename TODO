@@ -1,3 +1,4 @@
+fix dragging bug -> reorder and delete? not sure how to reproduce
 fix floating point issue
 mark transaction as savings
   rate of return
@@ -6,3 +7,4 @@ show percent of incoming/outgoing
 configure date range
 reorder categories
 restyle
+profiles
