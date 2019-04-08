@@ -1,3 +1,13 @@
+account
+contains many transactions
+has an interest rate
+
+transaction
+amount - can be negative
+schedule - use lib from before
+change - increases/decreases by x percent/amount on a schedule
+changeSchedule - schedule for change
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
