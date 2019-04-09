@@ -12,7 +12,6 @@
     "@reach/router": "^1.2.1",
     "emotion": "^10.0.9",
     "final-form": "^4.12.0",
-    "final-form-material-ui": "^0.3.0",
     "mobx": "^5.9.4",
     "mobx-base-store": "^0.2.0",
     "mobx-react": "^5.4.3",
